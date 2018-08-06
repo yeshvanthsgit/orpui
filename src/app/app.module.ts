@@ -11,8 +11,6 @@ import { Refinery } from './pages/refinery/refinery';
 import { ViewAttributes } from './pages/viewAttributes/viewAttributes';
 
 
-import { KeyHighlightsModule } from './key-highlights/key-highlights.module';
-import { DataQualityMoniteringModule } from './data-quality-monitering/data-quality-monitering.module';
 import { Api,Config,Constants,Service} from '../providers/index';
 import {CdkTableModule} from '@angular/cdk/table';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';

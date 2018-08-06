@@ -107,13 +107,6 @@ this.serv.getRefineryDetails().subscribe((resp) => {
 
 }
 
-=
-
-
-
-
-
-
 public viewAttributes(refineryname:string){
   let dialogRef = this.dialog.open(ViewAttributes, {
     width: '700px',

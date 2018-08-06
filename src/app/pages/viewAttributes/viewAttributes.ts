@@ -1,5 +1,5 @@
 import { OnInit, Component, ViewChild, Inject } from '@angular/core';
-import { User, Constants } from '../../../providers/index';
+import { Constants } from '../../../providers/index';
 import { Http, Response } from '@angular/http';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk/table';
