@@ -1,0 +1,71 @@
+
+<!--<app-key-highlights-page></app-key-highlights-page>-->
+<header center><h2 center> Regions </h2> </header>
+<content>
+           <div class="example-container mat-elevation-z8">
+
+              <div class="example-header" center>
+                  <mat-form-field>
+                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+                  </mat-form-field>
+                </div>
+          </div>
+          <div class="example-container mat-elevation-z8">
+              
+              <mat-table #table [dataSource]="dataSource" matSort>
+            
+                <!-- Position Column -->
+                <ng-container matColumnDef="name">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Region Name </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+                </ng-container>
+            
+                <!-- Name Column -->
+                <ng-container matColumnDef="status">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.status}}  </mat-cell>
+                </ng-container>
+
+                
+
+                <ng-container matColumnDef="attributes">
+                  <mat-header-cell *matHeaderCellDef >Attributes </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> 
+                    <button (click)="viewAttributes(element.name)" block>Attributes</button> </mat-cell>
+               </ng-container>
+            
+ 
+
+                <ng-container matColumnDef="viewSites">
+                    <mat-header-cell *matHeaderCellDef >Sites </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> 
+                      <button (click)="viewSites(element.name)" block>View Sites</button> </mat-cell>
+                 </ng-container>
+
+                 <ng-container matColumnDef="viewRefinery">
+                    <mat-header-cell *matHeaderCellDef >Refinery </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> 
+                      <button (click)="viewRefineries(element.name)" block >View Refinery</button> </mat-cell>
+                 </ng-container>
+
+            
+            
+                <mat-header-row bold *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+              </mat-table>
+
+              
+  <mat-paginator #paginator
+  [pageSize]="10"
+  [pageSizeOptions]="[5, 10, 20]"
+  [showFirstLastButtons]="true">
+</mat-paginator>
+            </div>
+</content>
+            
+            
+            <!-- Copyright 2018 Google Inc. All Rights Reserved.
+                Use of this source code is governed by an MIT-style license that
+                can be found in the LICENSE file at http://angular.io/license -->
+  
+
