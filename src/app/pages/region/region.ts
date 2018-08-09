@@ -34,8 +34,8 @@ export class Region implements OnInit {
 
       ngAfterViewInit() {
 
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+        //this.dataSource.paginator = this.paginator;
+       // this.dataSource.sort = this.sort;
       }
       applyFilter(filterValue: string) {
         filterValue = filterValue.trim(); // Remove whitespace
