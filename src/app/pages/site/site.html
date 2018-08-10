@@ -1,14 +1,15 @@
 
 <!--<app-key-highlights-page></app-key-highlights-page>-->
-
-<header center><h2> Sites </h2> </header>
-
-
+<div class="container-fluid">
+    <div class="row col-8" style="margin-top: 10px;padding: 10px">
+        <header center><h2> Sites </h2> </header>
+    </div>
+  </div>
            <div class="example-container mat-elevation-z8">
 
-              <div class="example-header">
+              <div class="example-header" style="margin-left: 10px;">
                   <mat-form-field>
-                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Site">
                   </mat-form-field>
                 </div>
           </div>
@@ -20,25 +21,25 @@
             
                 <!-- Name Column -->
                 <ng-container matColumnDef="name">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header>Site Name </mat-header-cell>
+                  <mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 15px;font-weight: bold;color: #000">Site Name </mat-header-cell>
                   <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="status">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+                  <mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 15px;font-weight: bold;color: #000"> Status </mat-header-cell>
                   <mat-cell *matCellDef="let element">  {{element.status}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="attributes">
-                    <mat-header-cell *matHeaderCellDef >Attributes </mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef style="font-size: 15px;font-weight: bold;color: #000">Attributes </mat-header-cell>
                     <mat-cell *matCellDef="let element"> 
-                      <button (click)="viewAttributes(element.name)" block>View attributes</button> </mat-cell>
+                      <button (click)="viewAttributes(element.name)" class="btn btn-primary btn-md" block>View attributes</button> </mat-cell>
                  </ng-container>
 
                  <ng-container matColumnDef="viewRefinery">
-                    <mat-header-cell *matHeaderCellDef >Refinery </mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef style="font-size: 15px;font-weight: bold;color: #000">Refinery </mat-header-cell>
                     <mat-cell *matCellDef="let element"> 
-                      <button (click)="viewRefineries(element.name)" block>View Refineries</button> </mat-cell>
+                      <button (click)="viewRefineries(element.name)" class="btn btn-primary btn-md" block>View Refineries</button> </mat-cell>
                  </ng-container>
 
 
@@ -49,7 +50,7 @@
                 <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
               </mat-table>
               <mat-paginator #paginator
-              [pageSize]="10"
+              [pageSize]="5"
               [pageSizeOptions]="[5, 10, 20]"
               [showFirstLastButtons]="true">
             </mat-paginator>

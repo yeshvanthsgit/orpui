@@ -11,7 +11,8 @@ import { ViewAttributes } from '../../pages/viewAttributes/viewAttributes';
 
 @Component({
   selector: 'site',
-  templateUrl: 'site.html'
+  templateUrl: 'site.html',
+  styleUrls: ['site.css'],
 
 
 })
@@ -50,11 +51,11 @@ export class Site implements OnInit {
     }
     this.serv.getSiteDetails().subscribe((resp) => {
       if (resp != null && resp.json() != null) {
-        let element = resp.json()['data'];
+        let element = resp.json();
         element.forEach(siteDetail => {
           let site = new SiteBO();
-          site.name = siteDetail.name;
-          site.status = siteDetail.status;
+          site.name = siteDetail.Site_Name;
+          site.status = siteDetail.Overall_Site_Performance;
 
           this.SiteBODetailArr.push(site);
 

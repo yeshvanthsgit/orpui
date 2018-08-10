@@ -13,8 +13,8 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'refinery',
-  templateUrl: 'refinery.html'
-
+  templateUrl: 'refinery.html',
+  styleUrls: ['Refinery.css'],
  
 }) 
 export class Refinery implements OnInit {
@@ -53,12 +53,12 @@ if(paramVal!=null){
   alert('Refineries for :' + paramVal);
   this.serv.getRefineryDetails().subscribe((resp) => {
     if (resp != null && resp.json() != null) {
-      let element = resp.json()['data'];
+      let element = resp.json();
       element.forEach(refineryDetail => {
         let refinery= new RefineryBO();
 
-        refinery.name=refineryDetail.name;
-        refinery.status=refineryDetail.status;
+        refinery.name=refineryDetail.Refinery_Name;
+        refinery.status=refineryDetail.Overall_Refinery_Performance;
         this.RefineryDetailArr.push(refinery);
   
     });   
@@ -80,12 +80,13 @@ if(paramVal!=null){
 }else{
 this.serv.getRefineryDetails().subscribe((resp) => {
   if (resp != null && resp.json() != null) {
-    let element = resp.json()['data'];
+    let element = resp.json()
+    ;
     element.forEach(refineryDetail => {
       let refinery= new RefineryBO();
 
-      refinery.name=refineryDetail.name;
-      refinery.status=refineryDetail.status;
+      refinery.name=refineryDetail.Refinery_Name;
+      refinery.status=refineryDetail.Overall_Refinery_Performance;
       this.RefineryDetailArr.push(refinery);
 
   });   

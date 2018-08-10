@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 
 @Injectable()
 export class Config {
-    private DEFAULT_ENDPOINT_URL:string = 'http://USHYDPSHANMUKH3:8544';
+    private DEFAULT_ENDPOINT_URL:string = 'http://localhost:8544';
   
     
       public get url() {

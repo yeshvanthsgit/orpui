@@ -13,8 +13,8 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'region',
-  templateUrl: 'region.html'
-
+  templateUrl: 'region.html',
+  styleUrls: ['region.css'],
 
 })
 export class Region implements OnInit {
@@ -53,13 +53,13 @@ if(paramVal!=null && parseInt(paramVal)>0){
   
   this.serv.getRegionDetails().subscribe((resp) => {
     if (resp != null && resp.json() != null) {
-      let element = resp.json()['data'];
+      let element = resp.json();
       element.forEach(regDetail => {
         let reg= new RegionBO();
         
 
-        reg.name=regDetail.name;
-        reg.status=regDetail.status;
+        reg.name=regDetail.Region_Name;
+        reg.status=regDetail.Overall_Region_Performance;
         this.regionArr.push(reg);
   
     });   
@@ -81,13 +81,13 @@ if(paramVal!=null && parseInt(paramVal)>0){
 }else{
 this.serv.getRegionDetails().subscribe((resp) => {
   if (resp != null && resp.json() != null) {
-    let element = resp.json()['data'];
+    let element = resp.json();
     element.forEach(regDetail => {
       let reg= new RegionBO();
       
-
-      reg.name=regDetail.name;
-      reg.status=regDetail.status;
+console.log('region name'+element);
+reg.name=regDetail.Region_Name;
+reg.status=regDetail.Overall_Region_Performance;
       this.regionArr.push(reg);
 
   });   

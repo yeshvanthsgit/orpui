@@ -22,7 +22,7 @@ export class Service {
 
   getRegionDetails(){
 
-    let url="testRegion";
+    let url="/refinery/fetchLimiteFields/TestDB/Region";
     let seq = this.api.get(url, null, null).share();
 
     seq
@@ -40,7 +40,7 @@ export class Service {
 
   getSiteDetails(){
     
-        let url="testSite";
+        let url="/refinery/fetchLimiteFields/TestDB/Site";
         let seq = this.api.get(url, null, null).share();
     
         seq
@@ -58,7 +58,7 @@ export class Service {
 
 getRefineryDetails(){
         
-            let url="testRefinery";
+            let url="/refinery/fetchLimiteFields/TestDB/Refinary";
             let seq = this.api.get(url, null, null).share();
         
             seq

@@ -1,4 +1,5 @@
 export class RegionBO {
+   
     name: string;
     status: string;
 

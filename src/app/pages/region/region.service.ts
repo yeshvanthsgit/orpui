@@ -11,7 +11,7 @@ export class UserService {
   }
 
   getUser() {
-    return this.http.get('http://USHYDPSHANMUKH3:8544/admin/getUsers/')
+    return this.http.get('http://localhost:8544/refinery/fetchLimiteFields/TestDB/Region')
     .map((res:Response) => res.json());
   }
 
