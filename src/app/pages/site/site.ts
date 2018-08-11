@@ -33,8 +33,7 @@ export class Site implements OnInit {
   }
 
   ngAfterViewInit() {
-    //this.dataSource.paginator = this.paginator;
-//this.dataSource.sort = this.sort;
+   
   }
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
@@ -46,10 +45,12 @@ export class Site implements OnInit {
 
     let paramVal:any=this.route.snapshot.params.name;
 
-    if(paramVal!=null){
-    alert('Sites for :' + paramVal);
-    }
-    this.serv.getSiteDetails().subscribe((resp) => {
+    if(paramVal!=null ){
+
+      //nchowhan - get Sites for specific Regions
+    // alert('Sites for :' + paramVal);
+
+    this.serv.getRegionSpecificSiteDetails(paramVal).subscribe((resp) => {
       if (resp != null && resp.json() != null) {
         let element = resp.json();
         element.forEach(siteDetail => {
@@ -73,13 +74,46 @@ export class Site implements OnInit {
     }, (err: Response) => {
       let msg = err.json()['message'];
 
-    });
+    })
+     
+    
+    }else{
+
+      //nchowhan - Get all Sites details
+      this.serv.getSiteDetails().subscribe((resp) => {
+        if (resp != null && resp.json() != null) {
+          let element = resp.json();
+          element.forEach(siteDetail => {
+            let site = new SiteBO();
+            site.name = siteDetail.Site_Name;
+            site.status = siteDetail.Overall_Site_Performance;
+  
+            this.SiteBODetailArr.push(site);
+  
+          });
+  
+          this.dataSource = new MatTableDataSource(this.SiteBODetailArr);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+  
+        } else {
+  
+        }
+  
+  
+      }, (err: Response) => {
+        let msg = err.json()['message'];
+  
+      })
+
+    }
+    
 
   }
 
 
   public viewRefineries(sitename:string){
-    let paramVal:any="site_"+sitename;
+    let paramVal:any=sitename;
     let url:any='/refinery/'+ paramVal;
     this.router.navigate([url]); 
   

@@ -1,4 +1,4 @@
-import { OnInit,Component,ViewChild} from '@angular/core';
+import { OnInit,Component,ViewChild, Input} from '@angular/core';
 import { Service } from '../../../providers/index';
 import { Http, Response } from '@angular/http';
 import {RegionBO} from '../../pages/bo/ObjectBO'
@@ -15,11 +15,15 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
   selector: 'region',
   templateUrl: 'region.html',
   styleUrls: ['region.css'],
+  
 
 })
 export class Region implements OnInit {
   title = 'Region';
   regionArr: Array<RegionBO> = new Array();
+   
+
+   
 // dataSource:MatTableDataSource|null ;
   displayedColumns = ['name', 'status', 'attributes','viewSites','viewRefinery'];
   dataSource = null;
@@ -50,6 +54,7 @@ export class Region implements OnInit {
     
 
 if(paramVal!=null && parseInt(paramVal)>0){
+
   
   this.serv.getRegionDetails().subscribe((resp) => {
     if (resp != null && resp.json() != null) {
@@ -113,7 +118,7 @@ reg.status=regDetail.Overall_Region_Performance;
 }
 
 public viewSites(regionname:string){
-  let paramVal:any="region_"+regionname;
+  let paramVal:any=regionname;
   let url:any='/site/'+ paramVal;
   this.router.navigate([url]);
 
@@ -121,7 +126,7 @@ public viewSites(regionname:string){
 
 
 public viewRefineries(regionname:string){
-  let paramVal:any="region_"+regionname;
+  let paramVal:any=regionname;
   let url:any='/refinery/'+ paramVal;
   this.router.navigate([url]);
 

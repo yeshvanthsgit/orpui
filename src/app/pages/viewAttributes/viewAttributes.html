@@ -1,14 +1,57 @@
 
 <!--<app-key-highlights-page></app-key-highlights-page>-->
-<header center><h2 center> Attributes </h2> </header>
-<content>
+<header center><h2 center style="color:blue;">  {{this.data.name}} - Attributes </h2> </header>
+<content style="animation: ease-in-out">
         
             <span layout="row"><hr flex/></span>
         
-        
-            <div center   class="form-group" style="padding: 6px">
-                <label><h6>Name :</h6> {{this.data.name}} </label> 
-            </div> 
+
+            <div class="example-container mat-elevation-z8" >
+
+                <div class="example-header" style="margin-left: 10px; color:blue;">
+                    <mat-form-field  style="color:blue;">
+                      <input matInput (keyup)="applyFilter($event.target.value)"  style="color:blue;" placeholder="Search Attributs">
+                    </mat-form-field>
+                  </div>
+            </div>
+
+
+            <div class="example-container mat-elevation-z8">
+              
+                <mat-table #table [dataSource]="dataSource" matSort>
+              
+                    <!-- <ng-container matColumnDef="seqNo">
+                        <mat-header-cell *matHeaderCellDef>Attribute #</mat-header-cell>
+                        <mat-cell *matCellDef="let element; let i = index;">{{i+1}}</mat-cell>
+                    </ng-container> -->
+              
+                  <!-- Name Column -->
+                  <ng-container matColumnDef="name">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 15px;font-weight: bold;color: #000">Attribute Name </mat-header-cell>
+                    <mat-cell *matCellDef="let element; let i = index;"> {{element.AttributeName}} </mat-cell>
+                  </ng-container>
+                  
+  
+                  <ng-container matColumnDef="value">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 15px;font-weight: bold;color: #000"> Attribute Value </mat-header-cell>
+                    <mat-cell *matCellDef="let element">  {{element.AttributeValue}} </mat-cell>
+                  </ng-container>
+  
+                 
+                  
+  
+              
+  
+              
+                  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                </mat-table>
+                <mat-paginator #paginator
+                [pageSize]="10"
+                [pageSizeOptions]="[5, 10, 20]"
+                [showFirstLastButtons]="true">
+              </mat-paginator>
+              </div>
 
 
 </content>

@@ -34,8 +34,6 @@ export class Refinery implements OnInit {
 
       ngAfterViewInit() {
 
-        //this.dataSource.paginator = this.paginator;
-       // this.dataSource.sort = this.sort;
       }
       applyFilter(filterValue: string) {
         filterValue = filterValue.trim(); // Remove whitespace
@@ -50,8 +48,47 @@ export class Refinery implements OnInit {
     
 
 if(paramVal!=null){
-  alert('Refineries for :' + paramVal);
-  this.serv.getRefineryDetails().subscribe((resp) => {
+   
+
+   let typeOfParam: string = paramVal;
+
+   if(typeOfParam.substr(0,3)==="Reg"){
+
+    //nchowhan - get Refineries for specific Region
+    // alert('Refineries for :' + paramVal);
+
+  this.serv.getRegionSpecificRefineryDetails(paramVal).subscribe((resp) => {
+    if (resp != null && resp.json() != null) {
+      let element = resp.json();
+      element.forEach(refineryDetail => {
+        let refinery= new RefineryBO();
+
+        refinery.name=refineryDetail.Refinery_Name;
+        refinery.status=refineryDetail.Overall_Refinery_Performance;
+        this.RefineryDetailArr.push(refinery);
+  
+    });   
+    
+    this.dataSource = new MatTableDataSource(this.RefineryDetailArr);
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+  
+    } else {
+  
+    }
+  
+  
+  }, (err: Response) => {
+    let msg = err.json()['message'];
+   
+  });
+}else{
+
+  // nchowhan - get Refineries for specific site
+  // alert('Refineries for :' + paramVal);
+
+
+  this.serv.getSiteSpecificRefineryDetails(paramVal).subscribe((resp) => {
     if (resp != null && resp.json() != null) {
       let element = resp.json();
       element.forEach(refineryDetail => {
@@ -77,7 +114,11 @@ if(paramVal!=null){
    
   });
 
+}
+
 }else{
+
+  //nchowhan - Get al Refinery details
 this.serv.getRefineryDetails().subscribe((resp) => {
   if (resp != null && resp.json() != null) {
     let element = resp.json()

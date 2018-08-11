@@ -19,3 +19,12 @@ export class RefineryBO {
 
 }
 
+export class AttrbuiteBO{
+    AttributeName: string;
+    AttributeValue: string;
+
+
+}
+
+
+
