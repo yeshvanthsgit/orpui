@@ -178,7 +178,7 @@ getRefineryDetails(){
 
   deleteRefineryDetails(refineryName: string) {
     
-        let url = "/refinery/deleteRecord/TrainDB/Refinary/Refinery_Name/" + refineryName;
+        let url = "/refinery/deleteRecord/TestDB/Refinary/Refinery_Name/" + refineryName;
         console.log(url);
         let seq = this.api.get(url, null, null).share();
     
@@ -197,7 +197,7 @@ getRefineryDetails(){
   
       updateRefineryDetails(refineryModal : JSON) {
         
-            let url = "/refinery/updateRecord/TrainDB/Refinary";
+            let url = "/refinery/updateRecord/TestDB/Refinary";
             console.log(url);
             let seq = this.api.post(url, refineryModal, null).share();
         
@@ -216,7 +216,7 @@ getRefineryDetails(){
 
           saveRefineryDetails(refineryModal : JSON) {
             
-                let url = "/refinery/saveRefinary/TrainDB/Refinary";
+                let url = "/refinery/saveRefinary/TestDB/Refinary";
                 console.log(url);
                 let seq = this.api.post(url, refineryModal, null).share();
             
