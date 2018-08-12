@@ -75,7 +75,7 @@ export class Service {
 
 getRefineryDetails(){
         
-            let url="/refinery/fetchLimiteFields/TestDB/Refinary";
+            let url="/refinery/fetchData/TestDB/Refinary";
             let seq = this.api.get(url, null, null).share();
         
             seq
@@ -176,13 +176,61 @@ getRefineryDetails(){
   }
 
 
-
+  deleteRefineryDetails(refineryName: string) {
+    
+        let url = "/refinery/deleteRecord/TrainDB/Refinary/Refinery_Name/" + refineryName;
+        console.log(url);
+        let seq = this.api.get(url, null, null).share();
+    
+        seq
+          .timeoutWith(3000, Observable.throw(new Error('Request timedout!!')))
+          .subscribe(res => {
+            //console.error('success', res);
+          }, err => {
+            console.error('ERROR', err);
+          });
+          
+          console.log(seq);
+        return seq;
+      }
 
   
+      updateRefineryDetails(refineryModal : JSON) {
+        
+            let url = "/refinery/updateRecord/TrainDB/Refinary";
+            console.log(url);
+            let seq = this.api.post(url, refineryModal, null).share();
+        
+            seq
+              .timeoutWith(3000, Observable.throw(new Error('Request timedout!!')))
+              .subscribe(res => {
+                //console.error('success', res);
+              }, err => {
+                console.error('ERROR', err);
+              });
+              
+              console.log(seq);
+            return seq;
+          }
 
 
-
-  
+          saveRefineryDetails(refineryModal : JSON) {
+            
+                let url = "/refinery/saveRefinary/TrainDB/Refinary";
+                console.log(url);
+                let seq = this.api.post(url, refineryModal, null).share();
+            
+                seq
+                  .timeoutWith(3000, Observable.throw(new Error('Request timedout!!')))
+                  .subscribe(res => {
+                    //console.error('success', res);
+                  }, err => {
+                    console.error('ERROR', err);
+                  });
+                  
+                  console.log(seq);
+                return seq;
+              }
 
   
 }

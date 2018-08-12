@@ -1,0 +1,198 @@
+<header center><h2 center style="color:blue;">  {{title}} </h2> </header>
+<content style="animation: ease-in-out">
+        
+            <span layout="row"><hr flex/></span>
+
+
+
+            <div >
+                <div class="form-group row" style="margin-top:3%;" >
+               <div class="col-lg-6">
+              <label class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Refinery Name</label></div>
+              <div class="col-lg-6">
+                <input type="text" class="form-control" [(ngModel)]="refineryModal['Refinery_Name']"  />
+              </div>
+            </div>
+            
+                  <div class="form-group row" style="margin-top:2%;">
+                  <div class="col-lg-6"  >
+              <label class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Site Name</label></div>
+              <div class="col-lg-6">
+                <input type="text" class="form-control" [(ngModel)]="refineryModal['Site_Name']" ng-disabled="isColDisabled['Site_Name']" />
+              </div>
+            </div>
+            
+                  <div class="form-group row" style="margin-top:2%;">
+                  <div class="col-lg-6"  >
+              <label class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Thermal Cracking Pressure</label></div>
+              <div class="col-lg-6">
+              
+                 <input type="text" class="form-control" [(ngModel)]="refineryModal['Thermal_Cracking_Pressure']" ng-disabled="isColDisabled['Thermal_Cracking_Pressure']" />
+              </div>
+            </div>
+          
+                    <div class="form-group row" style="margin-top:2%;">
+                    <div class="col-lg-6"  >
+              <label class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Thermal Cracking Temperature</label></div>
+              <div class="col-lg-6">
+                 <input type="text" class="form-control" [(ngModel)]="refineryModal['Thermal_Cracking_Temperature']" ng-disabled="isColDisabled['Thermal_Cracking_Temperature']" />
+              </div>
+            </div>
+            
+            <div class="form-group row" style="margin-top:2%;">
+            <div class="col-lg-6"  >
+              <label class="col-form-label" style="display:block;text-align:left;margin-left: 15%"> Vaccum Residue Heavier Hydrocarbons</label></div>
+              <div class="col-lg-6">
+                  <input type="text" class="form-control" [(ngModel)]="refineryModal['Vaccum_Residue_Heavier_Hydrocarbons']" ng-disabled="isColDisabled['Vaccum_Residue_Heavier_Hydrocarbons']" />
+              </div>
+            </div>
+          
+            <div class="form-group row" style="margin-top:2%;">
+            <div class="col-lg-6"  >
+              <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Claus H2S</label></div>
+              <div class="col-lg-6">
+                      <input type="text" class="form-control" [(ngModel)]="refineryModal['Claus_H2S']" ng-disabled="isColDisabled['Claus_H2S']" />
+          
+              </div>
+            </div>
+            
+              <div class="form-group row" style="margin-top:2%;">
+              <div class="col-lg-6"  >
+              <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Coking Feed</label></div>
+              <div class="col-lg-6">
+               <input type="text" class="form-control" [(ngModel)]="refineryModal['Coking_Feed']" ng-disabled="isColDisabled['Coking_Feed']" />
+              </div>
+            </div>
+            
+            
+              <div class="form-group row" style="margin-top:2%;">
+              <div class="col-lg-6"  >
+              <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Condensor Water</label></div>
+              <div class="col-lg-6">
+                <input type="text" class="form-control" [(ngModel)]="refineryModal['Condensor_Water']" ng-disabled="isColDisabled['Condensor_Water']" />
+              </div>
+            </div>
+            
+              <div class="form-group row" style="margin-top:2%;"><div class="col-lg-6"  >
+              <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Condensor Naphtha</label></div>
+              <div class="col-lg-6">
+                <input type="text" class="form-control" [(ngModel)]="refineryModal['Condensor_Naphtha']" ng-disabled="isColDisabled['Condensor_Naphtha']" />
+              </div>
+            </div>
+            
+              <div class="form-group row" style="margin-top:2%;"><div class="col-lg-6"  >
+              <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Cracking Side Chained Aromatics Chained Aromatics</label></div>
+              <div class="col-lg-6">
+               <input type="text" class="form-control" [(ngModel)]="refineryModal['Cracking_Side_Chained_Aromatics_Chained_Aromatics']" ng-disabled="isColDisabled['Cracking_Side_Chained_Aromatics_Chained_Aromatics']" />
+              </div>
+            </div>
+            
+              <div class="form-group row" style="margin-top:2%;"><div class="col-lg-6"  >
+              <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Crude Oil ASTM Distillation</label></div>
+              <div class="col-lg-6">
+              <input type="text" class="form-control" [(ngModel)]="refineryModal['Crude_Oil_ASTM_Distillation']" ng-disabled="isColDisabled['Crude_Oil_ASTM_Distillation']" />
+              </div>
+            </div>
+            
+              <div class="form-group row" style="margin-top:2%;"><div class="col-lg-6"  >
+              <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Crude Oil Boiling Point</label></div>
+              <div class="col-lg-6">
+              <input type="text" class="form-control" [(ngModel)]="refineryModal['Crude_Oil_Boiling_Point']" ng-disabled="isColDisabled['Crude_Oil_boiling point']" />
+              </div>
+            </div>
+            
+              <div class="form-group row" style="margin-top:2%;"><div class="col-lg-6"  >
+              <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Crude Oil Density</label></div>
+              <div class="col-lg-6">
+               <input type="text" class="form-control" [(ngModel)]="refineryModal['Crude_Oil_Density']" ng-disabled="isColDisabled['Crude_Oil_Density']" />
+              </div>
+            </div>
+            
+              <div class="form-group row" style="margin-top:2%;"><div class="col-lg-6"  >
+              <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Crude Oil Viscosity</label></div>
+              <div class="col-lg-6">
+               <input type="text" class="form-control" [(ngModel)]="refineryModal['Crude_Oil_Viscosity']" ng-disabled="isColDisabled['Crude_Oil_Viscosity']" />
+              </div>
+            </div>
+            
+              <div class="form-group row" style="margin-top:2%;"><div class="col-lg-6"  >
+              <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Furnance Fuel Oil</label></div>
+              <div class="col-lg-6">
+              <input type="text" class="form-control" [(ngModel)]="refineryModal['Furnance_Fuel_Oil']" ng-disabled="isColDisabled['Furnance_Fuel_Oil']" />
+              </div>
+            </div>
+            
+              <div class="form-group row" style="margin-top:2%;"><div class="col-lg-6"  >
+              <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Gas Processing Methane</label></div>
+              <div class="col-lg-6">
+               <input type="text" class="form-control" [(ngModel)]="refineryModal['Gas_Processing_Methane']" ng-disabled="isColDisabled['Gas_Processing_Methane']" />
+              </div>
+            </div>
+            
+            
+                <div class="form-group row" style="margin-top:2%;"><div class="col-lg-6"  >
+              <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Hydrogen Production Methane Reforming</label></div>
+              <div class="col-lg-6">
+              <input type="text" class="form-control" [(ngModel)]="refineryModal['Hydrogen_Production_Methane_Reforming']" ng-disabled="isColDisabled['Hydrogen_Production_Methane_Reforming']" />
+              </div>
+            </div>
+            
+                <div class="form-group row" style="margin-top:2%;"><div class="col-lg-6"  >
+              <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Hydrogen Production Technology Sulphur</label></div>
+              <div class="col-lg-6">
+                <input type="text" class="form-control" [(ngModel)]="refineryModal['Hydrogen_Production_Technology_Sulphur']" ng-disabled="isColDisabled['Hydrogen_Production_Technology_Sulphur']" />
+              </div>
+            </div>
+            
+            
+                <div class="form-group row" style="margin-top:2%;"><div class="col-lg-6"  >
+              <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Hydrotreating Organic Sulphur Compounds</label></div>
+              <div class="col-lg-6">
+              <input type="text" class="form-control" [(ngModel)]="refineryModal['Hydrotreating_Organic_Sulphur_Compounds']" ng-disabled="isColDisabled['Hydrotreating_Organic_Sulphur_Compounds']" />
+              </div>
+            </div>
+            
+            
+                <div class="form-group row" style="margin-top:2%;"><div class="col-lg-6"  >
+              <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Olefin Polymerization Process Technology C3 C4 Olefin Feed</label></div>
+              <div class="col-lg-6">
+              <input type="text" class="form-control" [(ngModel)]="refineryModal['Olefin_Polymerization_Process_Technology_C3_C4_Olefin_Feed']" ng-disabled="isColDisabled['Olefin_Polymerization_Process_Technology_C3_C4_Olefin_Feed']" />
+              </div>
+            </div>
+            
+                <div class="form-group row" style="margin-top:2%;"><div class="col-lg-6"  >
+              <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Petroleum Refinery Hydrocarbon Balances</label></div>
+              <div class="col-lg-6">
+               <input type="text" class="form-control" [(ngModel)]="refineryModal['Petroleum_Refinery_Hydrocarbon_Balances']" ng-disabled="isColDisabled['Petroleum_Refinery_Hydrocarbon_Balances']" />
+              </div>
+            </div>
+            
+                <div class="form-group row" style="margin-top:2%;"><div class="col-lg-6"  >
+              <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Reaction Mechanism Pressure</label></div>
+              <div class="col-lg-6">
+              <input type="text" class="form-control" [(ngModel)]="refineryModal['Reaction_Mechanism_Pressure']" ng-disabled="isColDisabled['Reaction_Mechanism_Pressure']" />
+              </div>
+            </div>
+          
+                <div class="form-group row" style="margin-top:2%;"><div class="col-lg-6"  >
+              <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Crude Oil API Gravity</label></div>
+              <div class="col-lg-6">
+              <input type="text" class="form-control" [(ngModel)]="refineryModal['Crude_Oil_API_Gravity']" ng-disabled="isColDisabled['Crude_Oil_API_Gravity']" />
+              </div>
+            </div>
+          
+          <div class="form-group row" style="margin-top:5%;margin-bottom:5%">
+          <div class="col-lg-6" style="padding-left:22%;">
+                  <button class="btn btn-primary btn-sm"  type="button"  (click)="UpdateRefinery(refineryModal)">
+                   Update</button>
+                    </div>
+                    
+                    </div>
+                    
+                 </div>           
+
+
+</content>
+            
+            
+

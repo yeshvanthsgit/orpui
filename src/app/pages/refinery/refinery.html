@@ -5,15 +5,18 @@
     <header center><h2 center> Refineries </h2> </header>
   </div>
 </div>
-
+<button class="btn btn-primary btn-md" style="float:right;margin-right:4% "  type="button"  (click)="AddRefinery()">
+    Add Refinery</button>
 <content>
            <div class="example-container mat-elevation-z8">
 
               <div class="example-header" center style="margin-left: 10px;">
                   <mat-form-field>
                     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Refinery">
+
                   </mat-form-field>
                 </div>
+
           </div>
           <div class="example-container mat-elevation-z8">
               
@@ -42,8 +45,8 @@
                  <ng-container matColumnDef="action">
                     <mat-header-cell *matHeaderCellDef style="font-size: 15px;font-weight: bold;color: #000;text-align: center">Action </mat-header-cell>
                     <mat-cell *matCellDef="let element"> 
-                      <button class="btn btn-primary btn-sm"block >Edit</button> 
-                      <button class="btn btn-danger btn-sm smallBtn" block >Delete</button> </mat-cell>
+                      <button (click)="SearchRefinery(element.name)" class="btn btn-primary btn-sm"block >Edit</button> 
+                      <button (click)="DeleteRefinery(element.name)" class="btn btn-danger btn-sm smallBtn" block >Delete</button> </mat-cell>
                  </ng-container>
 
           

@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, keyframes } from '@angular/core';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { HttpModule, Http, XHRBackend, RequestOptions } from '@angular/http';
+import {FormsModule} from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,7 +10,8 @@ import { Region } from './pages/region/region';
 import { Site } from './pages/site/site';
 import { Refinery } from './pages/refinery/refinery';
 import { ViewAttributes } from './pages/viewAttributes/viewAttributes';
-
+import { UpdateRefinery } from './pages/refinery/UpdateRefinery';
+import { AddRefinery } from './pages/refinery/AddRefinery';
 
 import { Api,Config,Constants,Service} from '../providers/index';
 import {CdkTableModule} from '@angular/cdk/table';
@@ -33,11 +35,12 @@ import {
 
 @NgModule({
   declarations: [
-    AppComponent,Region,Site,Refinery,ViewAttributes,
+    AppComponent,Region,Site,Refinery,ViewAttributes,UpdateRefinery,AddRefinery
   ],
   imports: [
     BrowserModule,
     HttpModule,
+    FormsModule,
     AppRoutingModule,
     CdkTableModule,
     MatTableModule,
@@ -49,7 +52,7 @@ import {
     NgbModule.forRoot()
   ],
   entryComponents: [
-    Region,Site,Refinery,ViewAttributes
+    Region,Site,Refinery,ViewAttributes, UpdateRefinery,AddRefinery
   ],
   providers: [Api,Config,Constants,CdkTableModule,Service],
   bootstrap: [AppComponent ]
