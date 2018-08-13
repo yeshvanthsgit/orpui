@@ -231,6 +231,55 @@ getRefineryDetails(){
                   console.log(seq);
                 return seq;
               }
+  
+  pushFileToStorage(file1: File, file2: File) {
+
+    const formdata: FormData = new FormData();
+    formdata.append('file1', file1);
+    formdata.append('file2', file2);
+    const URL = 'refinery/saveData';
+
+    let seq = this.api.post(URL, formdata, null).share();
+    seq
+      .timeoutWith(20000, Observable.throw(new Error('Request timedout!!')))
+      .map(res => res)
+      .subscribe(res => {
+        // If the API returned a successful response, mark the user as logged in
+        console.log(res);
+      }, err => {
+        if(document.getElementById('successMessage') != null 
+          && document.getElementById('successMessage') != undefined ){
+            document.getElementById('successMessage').innerHTML = 'Service unavailable!';
+            document.getElementById('successMessage').setAttribute('style','color: red;');
+        }
+        console.error('ERROR', err);
+      });
+
+    return seq;
+  }
+
+  runModalForUploadedData() {
+
+    const URL = 'runModal';
+
+    let seq = this.api.postModal(URL, null, null).share();
+    seq
+      .timeoutWith(20000, Observable.throw(new Error('Request timedout!!')))
+      .map(res => res)
+      .subscribe(res => {
+        // If the API returned a successful response, mark the user as logged in
+        console.log(res);
+      }, err => {
+        if(document.getElementById('runMessage') != null 
+          && document.getElementById('runMessage') != undefined ){
+            document.getElementById('runMessage').innerHTML = 'Service unavailable!';
+            document.getElementById('runMessage').setAttribute('style','color: red;');
+        }
+        console.error('ERROR', err);
+      });
+
+    return seq;
+  }
 
   
 }
