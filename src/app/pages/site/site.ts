@@ -128,8 +128,8 @@ export class Site implements OnInit {
 
   public viewAttributes(sitename:string){
     let dialogRef = this.dialog.open(ViewAttributes, {
-      width: '700px',
-      height: '700px',
+      width: '1000px',
+      height: '800px',
       data: { name: sitename }
     });
   

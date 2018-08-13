@@ -69,9 +69,11 @@ export class ViewAttributes implements OnInit {
 
               let attributes = new AttrbuiteBO();
               //alert(key)
-              //alert(JSON.stringify(value));
-              attributes.AttributeName = key;
+              // alert(JSON.stringify(value));
+              attributes.AttributeName = key.toString().split('_').join(' ');
               attributes.AttributeValue = JSON.stringify(value);
+
+              // console.log(attributes.AttributeValue);
               //attributes.AttributeNo= 1;
               this.seqNumArr[i]= i++;
 
@@ -118,8 +120,9 @@ export class ViewAttributes implements OnInit {
               let attributes = new AttrbuiteBO();
               //alert(key)
               //alert(JSON.stringify(value));
-              attributes.AttributeName = key;
+              attributes.AttributeName = key.toString().split('_').join(' ');
               attributes.AttributeValue = JSON.stringify(value);
+              
 
               this.AttributeDetailArr.push(attributes);
 
@@ -163,7 +166,7 @@ export class ViewAttributes implements OnInit {
               let attributes = new AttrbuiteBO();
               //alert(key)
               //alert(JSON.stringify(value));
-              attributes.AttributeName = key;
+              attributes.AttributeName = key.toString().split('_').join(' ');
               attributes.AttributeValue = JSON.stringify(value);
 
               this.AttributeDetailArr.push(attributes);
