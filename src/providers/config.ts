@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core'
 @Injectable()
 export class Config {
     private DEFAULT_ENDPOINT_URL:string = 'http://localhost:8544';
+    private MODAL_ENDPOINT_URL:string = 'http://localhost:8080';
   
     
       public get url() {
@@ -11,5 +12,9 @@ export class Config {
           localEndpointURL = this.DEFAULT_ENDPOINT_URL;
         }
         return localEndpointURL;
+      }
+
+      public get modalUrl() {
+        return this.MODAL_ENDPOINT_URL;
       }
 }
