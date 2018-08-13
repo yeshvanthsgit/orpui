@@ -1,4 +1,4 @@
-import { OnInit,Component,ViewChild} from '@angular/core';
+import { OnInit,Component,ViewChild, Input} from '@angular/core';
 import { Service } from '../../../providers/index';
 import { Http, Response } from '@angular/http';
 import {RefineryBO} from '../../pages/bo/ObjectBO'
@@ -25,6 +25,7 @@ import { Location } from '@angular/common';
 export class Refinery implements OnInit {
   title = 'USERS';
   RefineryDetailArr: Array<RefineryBO> = new Array();
+  @Input() typeOfParam;
 // dataSource:MatTableDataSource|null ;
   displayedColumns = ['name', 'status', 'attributes','action'];
   dataSource = null;
@@ -54,10 +55,12 @@ export class Refinery implements OnInit {
 
 if(paramVal!=null){
    
+  
+   let typeOfAttr: string = paramVal;
 
-   let typeOfParam: string = paramVal;
+   this.typeOfParam ='Refineries of '+ paramVal;
 
-   if(typeOfParam.substr(0,3)==="Reg"){
+   if(typeOfAttr.substr(0,3)==="Reg"){
 
     //nchowhan - get Refineries for specific Region
     // alert('Refineries for :' + paramVal);
@@ -123,6 +126,7 @@ if(paramVal!=null){
 
 }else{
 
+  this.typeOfParam ="Refineries";
   //nchowhan - Get al Refinery details
 this.serv.getRefineryDetails().subscribe((resp) => {
   if (resp != null && resp.json() != null) {

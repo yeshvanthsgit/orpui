@@ -1,4 +1,4 @@
-import { OnInit, Component, ViewChild } from '@angular/core';
+import { OnInit, Component, ViewChild, Input } from '@angular/core';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk/table';
 import { DataSource } from '@angular/cdk/table';
@@ -19,6 +19,10 @@ import { ViewAttributes } from '../../pages/viewAttributes/viewAttributes';
 export class Site implements OnInit {
   title = 'Sites';
   SiteBODetailArr: Array<SiteBO> = new Array();
+  
+
+ @Input() typeOfParam;
+
   // dataSource:MatTableDataSource|null ;
 
   displayedColumns = ['name', 'status', 'attributes', 'viewRefinery'];
@@ -50,6 +54,8 @@ export class Site implements OnInit {
       //nchowhan - get Sites for specific Regions
     // alert('Sites for :' + paramVal);
 
+    this.typeOfParam ='Sites of '+ paramVal;
+
     this.serv.getRegionSpecificSiteDetails(paramVal).subscribe((resp) => {
       if (resp != null && resp.json() != null) {
         let element = resp.json();
@@ -78,7 +84,7 @@ export class Site implements OnInit {
      
     
     }else{
-
+      this.typeOfParam ='Sites';
       //nchowhan - Get all Sites details
       this.serv.getSiteDetails().subscribe((resp) => {
         if (resp != null && resp.json() != null) {

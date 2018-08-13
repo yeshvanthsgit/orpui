@@ -1,7 +1,7 @@
 
 <!--<app-key-highlights-page></app-key-highlights-page>-->
 <header center><h2 center style="color:blue;">  {{this.data.name}} - Attributes </h2> </header>
-<content style="animation: ease-in-out">
+<content style="animation: ease-in-out ;">
         
             <span layout="row"><hr flex/></span>
         
@@ -10,7 +10,7 @@
 
                 <div class="example-header" style="margin-left: 10px; color:blue;">
                     <mat-form-field  style="color:blue;">
-                      <input matInput (keyup)="applyFilter($event.target.value)"  style="color:blue;" placeholder="Search Attributs">
+                      <input matInput (keyup)="applyFilter($event.target.value)"  style="color:blue;" placeholder="Search Name/Value">
                     </mat-form-field>
                   </div>
             </div>

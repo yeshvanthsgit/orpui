@@ -19,3 +19,15 @@ button:hover{
     font-weight: 600;
     opacity:1
 }
+
+
+/* .mat-cell, .mat-header-cell {
+    flex: 1;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    background-color: rgb(5, 112, 19);
+    background-image: url("paper.jpg");
+    text-decoration:palegreen;
+
+} */
