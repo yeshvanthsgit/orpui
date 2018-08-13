@@ -48,6 +48,11 @@ export class Api {
     return this.http.post(this.config.url + '/' + endpoint, body, options);
   }
 
+  postModal(endpoint: string, body: any, options?: RequestOptions) {
+    this.testEndpoint(this.config.modalUrl + '/' + endpoint);
+    return this.http.post(this.config.modalUrl + '/' + endpoint, body, options);
+  }
+
   put(endpoint: string, body: any, options?: RequestOptions) {
     this.testEndpoint(this.config.url + '/' + endpoint);
     return this.http.put(this.config.url + '/' + endpoint, body, options);

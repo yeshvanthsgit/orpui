@@ -1,0 +1,36 @@
+<header center>
+    <h2 center> Upload Testing and Training Data </h2>
+</header>
+
+<div class="container">
+    <div class="row"> <label id="successMessage" style="color:green; width: 100%"></label></div>
+    <div class="row" style="margin-top: 5%">
+        <div style="text-align:left; padding-left:10%; width:100%">
+            <div class="col">
+                <div style="width: 30%">
+                    <label>Test Data set</label>
+                </div>
+                <div style="width: 100%">
+                    <input style="width: 100%" type="file" (change)="selectTestFile($event)">
+                </div>
+            </div>
+            <div class="col">
+                <div style="width: 30%">
+                    <label>Train Data set</label>
+                </div>
+                <div style="width: 100%">
+                    <input style="width: 100%" type="file" (change)="selectTrainFile($event)">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="padding-left: 40%; margin-top: 5%">
+        <button [disabled]="!selectedTestFile || !selectedTrainFile" (click)="upload()">Upload</button>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <button mat-button [mat-dialog-close]="true">Close</button>
+    </div>
+    <div class="row" style="padding-left: 45%; margin-top: 5%">
+        
+    </div>
+</div>

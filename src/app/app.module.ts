@@ -12,6 +12,8 @@ import { Refinery } from './pages/refinery/refinery';
 import { ViewAttributes } from './pages/viewAttributes/viewAttributes';
 import { UpdateRefinery } from './pages/refinery/UpdateRefinery';
 import { AddRefinery } from './pages/refinery/AddRefinery';
+import { UploadData } from './pages/uploadData/uploadData';
+import { RunModal } from './pages/runModal/runModal';
 
 import { Api,Config,Constants,Service} from '../providers/index';
 import {CdkTableModule} from '@angular/cdk/table';
@@ -35,7 +37,7 @@ import {
 
 @NgModule({
   declarations: [
-    AppComponent,Region,Site,Refinery,ViewAttributes,UpdateRefinery,AddRefinery
+    AppComponent,Region,Site,Refinery,ViewAttributes,UpdateRefinery,AddRefinery,UploadData,RunModal
   ],
   imports: [
     BrowserModule,
@@ -52,7 +54,7 @@ import {
     NgbModule.forRoot()
   ],
   entryComponents: [
-    Region,Site,Refinery,ViewAttributes, UpdateRefinery,AddRefinery
+    Region,Site,Refinery,ViewAttributes, UpdateRefinery,AddRefinery,UploadData,RunModal
   ],
   providers: [Api,Config,Constants,CdkTableModule,Service],
   bootstrap: [AppComponent ]
