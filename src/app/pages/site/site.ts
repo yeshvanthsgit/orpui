@@ -130,7 +130,7 @@ export class Site implements OnInit {
     let dialogRef = this.dialog.open(ViewAttributes, {
       width: '1000px',
       height: '800px',
-      data: { name: sitename }
+      data: { name: "Sit_"+sitename }
     });
   
     dialogRef.afterClosed().subscribe(result => {

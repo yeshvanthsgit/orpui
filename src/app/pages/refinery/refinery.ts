@@ -195,7 +195,7 @@ public viewAttributes(refineryname:string){
   let dialogRef = this.dialog.open(ViewAttributes, {
     width: '1000px',
     height: '800px',
-    data: { name: refineryname }
+    data: { name: "Ref_"+refineryname }
   });
 
   dialogRef.afterClosed().subscribe(result => {

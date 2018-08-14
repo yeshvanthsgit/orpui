@@ -138,7 +138,7 @@ public viewAttributes(regionname:string){
   let dialogRef = this.dialog.open(ViewAttributes, {
     width: '1000px',
     height: '800px',
-    data: { name: regionname }
+    data: { name: "Reg_"+regionname }
   });
 
   dialogRef.afterClosed().subscribe(result => {

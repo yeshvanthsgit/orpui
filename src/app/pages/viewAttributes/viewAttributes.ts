@@ -54,8 +54,8 @@ export class ViewAttributes implements OnInit {
 
     if (this.typeOfAttribute.substr(0, 3) === "Reg") {
 
-
-      this.serv.getSpecificRegionDetail(this.typeOfAttribute).subscribe((resp) => {
+      this.data.name= this.typeOfAttribute.substr(4,this.typeOfAttribute.length );
+      this.serv.getSpecificRegionDetail(this.data.name).subscribe((resp) => {
         if (resp != null && resp.json() != null) {
           let element = resp.json();
           element.forEach(attrDetail => {
@@ -104,8 +104,8 @@ export class ViewAttributes implements OnInit {
 
     if (this.typeOfAttribute.substr(0, 3) === "Sit") {
 
-
-      this.serv.getSpecificSiteDetail(this.typeOfAttribute).subscribe((resp) => {
+      this.data.name= this.typeOfAttribute.substr(4,this.typeOfAttribute.length );
+      this.serv.getSpecificSiteDetail( this.data.name).subscribe((resp) => {
         if (resp != null && resp.json() != null) {
           let element = resp.json();
           element.forEach(attrDetail => {
@@ -150,8 +150,8 @@ export class ViewAttributes implements OnInit {
 
     if (this.typeOfAttribute.substr(0, 3) === "Ref") {
 
-
-      this.serv.getSpecificRefineryDetail(this.typeOfAttribute).subscribe((resp) => {
+      this.data.name= this.typeOfAttribute.substr(4,this.typeOfAttribute.length );
+      this.serv.getSpecificRefineryDetail(this.data.name).subscribe((resp) => {
         if (resp != null && resp.json() != null) {
           let element = resp.json();
           element.forEach(attrDetail => {
