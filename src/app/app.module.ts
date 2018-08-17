@@ -19,6 +19,7 @@ import { Api,Config,Constants,Service} from '../providers/index';
 import {CdkTableModule} from '@angular/cdk/table';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { SweetAlertService } from 'angular-sweetalert-service';
 import {
   
   MatTableModule,
@@ -56,7 +57,7 @@ import {
   entryComponents: [
     Region,Site,Refinery,ViewAttributes, UpdateRefinery,AddRefinery,UploadData,RunModal
   ],
-  providers: [Api,Config,Constants,CdkTableModule,Service],
+  providers: [Api,Config,Constants,CdkTableModule,Service,SweetAlertService],
   bootstrap: [AppComponent ]
 })
 export class AppModule { }

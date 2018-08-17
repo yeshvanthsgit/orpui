@@ -8,6 +8,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/timeoutWith';
 import "rxjs/add/operator/share";
+import { SweetAlertService } from 'angular-sweetalert-service';
 
 
 
@@ -17,7 +18,7 @@ import "rxjs/add/operator/share";
 export class Service {
   
 
-  constructor(public http: Http, public api: Api ) {
+  constructor(public http: Http, public api: Api, private alertService: SweetAlertService ) {
   }
 
   getRegionDetails(){
@@ -270,12 +271,8 @@ getRefineryDetails(){
         // If the API returned a successful response, mark the user as logged in
         console.log(res);
       }, err => {
-        if(document.getElementById('runMessage') != null 
-          && document.getElementById('runMessage') != undefined ){
-            document.getElementById('runMessage').innerHTML = 'Service unavailable!';
-            document.getElementById('runMessage').setAttribute('style','color: red;');
-        }
         console.error('ERROR', err);
+        this.alertService.error({title:"Modal has failed to run!"}).then(location.reload());
       });
 
     return seq;

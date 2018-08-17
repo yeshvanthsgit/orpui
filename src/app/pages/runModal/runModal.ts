@@ -1,5 +1,6 @@
 import { OnInit, Component } from '@angular/core';
 import { Service } from '../../../providers/index';
+import { SweetAlertService } from 'angular-sweetalert-service';
 
 @Component({
     selector: 'runModal',
@@ -13,11 +14,8 @@ export class RunModal implements OnInit {
     ngOnInit(): any {
     }
 
-    constructor(private runModalService: Service) {
-        if(document.getElementById('runMessage') != null 
-             && document.getElementById('runMessage') != undefined){
-                document.getElementById('runMessage').innerHTML = '';
-         }  
+    constructor(private runModalService: Service, private alertService: SweetAlertService) {
+         
     }
 
     doConfirm() {
@@ -25,13 +23,13 @@ export class RunModal implements OnInit {
         this.runModalService.runModalForUploadedData().subscribe(event => {
             if (event != undefined && event.status == 200) {
                 console.log('Modal has run successfully!');
-                document.getElementById('runMessage').innerHTML = 
-                    "Modal has run successfully!";
+
+                this.alertService.success({title:"Modal has run successfully!"}).then(location.reload());
+                
             } else{
                 console.log('Modal has failed to run!');
-                document.getElementById('runMessage').innerHTML = 
-                    "Modal has failed to run!";
-                document.getElementById('runMessage').setAttribute('style','color: red;');
+                
+                this.alertService.error({title:"Modal has failed to run!"}).then(location.reload());
             }
 
         });
