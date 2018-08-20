@@ -1,5 +1,5 @@
 import { OnInit,Component,ViewChild, Input} from '@angular/core';
-import { Service } from '../../../providers/index';
+import { Service,Constants } from '../../../providers/index';
 import { Http, Response } from '@angular/http';
 import {RegionBO} from '../../pages/bo/ObjectBO'
 import {MatTableDataSource, MatSort,MatPaginator} from '@angular/material';
@@ -11,7 +11,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 
 
-@Component({
+@Component({ 
   selector: 'region',
   templateUrl: 'region.html',
   styleUrls: ['region.css'],
@@ -21,6 +21,12 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 export class Region implements OnInit {
   title = 'Region';
   regionArr: Array<RegionBO> = new Array();
+
+  public goodCount:number=1;
+  public badCount:number=1;
+  public avgCount:number=1;
+
+  public dataloaded:boolean=false;
    
 
    
@@ -32,7 +38,7 @@ export class Region implements OnInit {
    @ViewChild(MatPaginator) paginator: MatPaginator;
 
 
-  constructor( public serv: Service,private http: Http,private router:Router,private route: ActivatedRoute,public dialog: MatDialog) {
+  constructor( public constants: Constants ,public serv: Service,private http: Http,private router:Router,private route: ActivatedRoute,public dialog: MatDialog) {
     
       }
 
@@ -65,9 +71,24 @@ if(paramVal!=null && parseInt(paramVal)>0){
 
         reg.name=regDetail.Region_Name;
         reg.status=regDetail.Overall_Region_Performance;
+
+        if(reg.status){
+  
+         if( reg.status.toUpperCase()==this.constants.PERFORMANCE_GOOD){
+          this.goodCount++;
+         } else if( reg.status.toUpperCase()==this.constants.PERFORMANCE_AVERAGE){
+          this.avgCount++;
+         } else if( reg.status.toUpperCase()==this.constants.PERFORMANCE_BAD){
+          this.badCount++;
+         }
+        } 
         this.regionArr.push(reg);
   
     });   
+
+
+    this.dataloaded=true;
+
     
     this.dataSource = new MatTableDataSource(this.regionArr);
     this.dataSource.sort = this.sort;
@@ -93,9 +114,23 @@ this.serv.getRegionDetails().subscribe((resp) => {
 console.log('region name'+element);
 reg.name=regDetail.Region_Name;
 reg.status=regDetail.Overall_Region_Performance;
+
+if(reg.status){
+  
+         if( reg.status.toUpperCase()==this.constants.PERFORMANCE_GOOD){
+          this.goodCount++;
+         } else if( reg.status.toUpperCase()==this.constants.PERFORMANCE_AVERAGE){
+          this.avgCount++;
+         } else if( reg.status.toUpperCase()==this.constants.PERFORMANCE_BAD){
+          this.badCount++;
+         }
+        } 
       this.regionArr.push(reg);
 
   });   
+
+
+  this.dataloaded=true;
   
   this.dataSource = new MatTableDataSource(this.regionArr);
   this.dataSource.sort = this.sort;

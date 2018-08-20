@@ -20,6 +20,8 @@ import {CdkTableModule} from '@angular/cdk/table';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { SweetAlertService } from 'angular-sweetalert-service';
+import { PieChartComponent } from './pages/piechart/piechart'; 
+import { ChartsModule } from 'ng2-charts'; 
 import {
   
   MatTableModule,
@@ -38,7 +40,7 @@ import {
 
 @NgModule({
   declarations: [
-    AppComponent,Region,Site,Refinery,ViewAttributes,UpdateRefinery,AddRefinery,UploadData,RunModal
+    AppComponent,Region,Site,Refinery,ViewAttributes,UpdateRefinery,AddRefinery,UploadData,RunModal,PieChartComponent
   ],
   imports: [
     BrowserModule,
@@ -51,11 +53,11 @@ import {
     MatSortModule,
     BrowserAnimationsModule,
     MatFormFieldModule,
-    MatInputModule,MatPaginatorModule,MatDialogModule,
+    MatInputModule,MatPaginatorModule,MatDialogModule,ChartsModule,
     NgbModule.forRoot()
   ],
   entryComponents: [
-    Region,Site,Refinery,ViewAttributes, UpdateRefinery,AddRefinery,UploadData,RunModal
+    Region,Site,Refinery,ViewAttributes, UpdateRefinery,AddRefinery,UploadData,RunModal,PieChartComponent
   ],
   providers: [Api,Config,Constants,CdkTableModule,Service,SweetAlertService],
   bootstrap: [AppComponent ]

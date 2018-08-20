@@ -3,10 +3,13 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class Constants {
-    public static FROM_SCREEN_SEARCH_BY_RETAILER:number = 1;
-    public static FROM_SCREEN_SEARCH_BY_MEDICINE:number = 2;
-    public static FROM_SCREEN_OTC:number = 3;
+
+    public  PERFORMANCE_GOOD:String = "GOOD";
+    public  PERFORMANCE_AVERAGE:String = "AVERAGE";
+    public  PERFORMANCE_BAD:string = "BAD";
 
     constructor() {
+
       }
+
 }

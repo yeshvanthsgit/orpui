@@ -1,5 +1,5 @@
 import { OnInit,Component,ViewChild, Input} from '@angular/core';
-import { Service } from '../../../providers/index';
+import { Service,Constants } from '../../../providers/index';
 import { Http, Response } from '@angular/http';
 import {RefineryBO} from '../../pages/bo/ObjectBO'
 import {MatTableDataSource, MatSort,MatPaginator} from '@angular/material';
@@ -33,8 +33,14 @@ export class Refinery implements OnInit {
    @ViewChild(MatSort) sort: MatSort;
    @ViewChild(MatPaginator) paginator: MatPaginator;
 
+   public goodCount:number=1;
+   public badCount:number=1;
+   public avgCount:number=1;
+ 
+   public dataloaded:boolean=false;
 
-  constructor( private location: Location,public serv: Service,private http: Http,private router:Router,private route: ActivatedRoute,public dialog: MatDialog) {
+
+  constructor( public constants: Constants,private location: Location,public serv: Service,private http: Http,private router:Router,private route: ActivatedRoute,public dialog: MatDialog) {
     
       }
 
@@ -73,10 +79,21 @@ if(paramVal!=null){
 
         refinery.name=refineryDetail.Refinery_Name;
         refinery.status=refineryDetail.Overall_Refinery_Performance;
+
+        if(refinery.status){
+          
+                 if( refinery.status.toUpperCase()==this.constants.PERFORMANCE_GOOD){
+                  this.goodCount++;
+                 } else if( refinery.status.toUpperCase()==this.constants.PERFORMANCE_AVERAGE){
+                  this.avgCount++;
+                 } else if( refinery.status.toUpperCase()==this.constants.PERFORMANCE_BAD){
+                  this.badCount++;
+                 }
+                }
         this.RefineryDetailArr.push(refinery);
   
     });   
-    
+    this.dataloaded=true;
     this.dataSource = new MatTableDataSource(this.RefineryDetailArr);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
@@ -104,13 +121,25 @@ if(paramVal!=null){
 
         refinery.name=refineryDetail.Refinery_Name;
         refinery.status=refineryDetail.Overall_Refinery_Performance;
+
+        if(refinery.status){
+          
+                 if( refinery.status.toUpperCase()==this.constants.PERFORMANCE_GOOD){
+                  this.goodCount++;
+                 } else if( refinery.status.toUpperCase()==this.constants.PERFORMANCE_AVERAGE){
+                  this.avgCount++;
+                 } else if( refinery.status.toUpperCase()==this.constants.PERFORMANCE_BAD){
+                  this.badCount++;
+                 }
+                }
         this.RefineryDetailArr.push(refinery);
   
     });   
-    
+    this.dataloaded=true;
     this.dataSource = new MatTableDataSource(this.RefineryDetailArr);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+  
   
     } else {
   
@@ -137,10 +166,20 @@ this.serv.getRefineryDetails().subscribe((resp) => {
 
       refinery.name=refineryDetail.Refinery_Name;
       refinery.status=refineryDetail.Overall_Refinery_Performance;
+      if(refinery.status){
+        
+               if( refinery.status.toUpperCase()==this.constants.PERFORMANCE_GOOD){
+                this.goodCount++;
+               } else if( refinery.status.toUpperCase()==this.constants.PERFORMANCE_AVERAGE){
+                this.avgCount++;
+               } else if( refinery.status.toUpperCase()==this.constants.PERFORMANCE_BAD){
+                this.badCount++;
+               }
+              }
       this.RefineryDetailArr.push(refinery);
 
   });   
-  
+  this.dataloaded=true;
   this.dataSource = new MatTableDataSource(this.RefineryDetailArr);
   this.dataSource.sort = this.sort;
   this.dataSource.paginator = this.paginator;
@@ -173,7 +212,7 @@ public getRefineryDetails() {
         this.RefineryDetailArr.push(refinery);
   
     });   
-    
+    this.dataloaded=true;
     this.dataSource = new MatTableDataSource(this.RefineryDetailArr);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;

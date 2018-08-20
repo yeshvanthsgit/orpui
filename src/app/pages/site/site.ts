@@ -3,7 +3,7 @@ import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk/table';
 import { DataSource } from '@angular/cdk/table';
 import { SiteBO } from '../../pages/bo/ObjectBO'
-import { Service } from '../../../providers/index';
+import { Service,Constants } from '../../../providers/index';
 import { Http, Response } from '@angular/http';
 import { Router,ActivatedRoute } from '@angular/router';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
@@ -28,11 +28,18 @@ export class Site implements OnInit {
   displayedColumns = ['name', 'status', 'attributes', 'viewRefinery'];
   dataSource = null;
 
+  
+  public goodCount:number=1;
+  public badCount:number=1;
+  public avgCount:number=1;
+
+  public dataloaded:boolean=false;
+
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
 
-  constructor(public serv: Service, private http: Http, private router: Router,private route: ActivatedRoute,public dialog: MatDialog) {
+  constructor( public constants: Constants,public serv: Service, private http: Http, private router: Router,private route: ActivatedRoute,public dialog: MatDialog) {
 
   }
 
@@ -64,6 +71,17 @@ export class Site implements OnInit {
           site.name = siteDetail.Site_Name;
           site.status = siteDetail.Overall_Site_Performance;
 
+          if(site.status){
+            
+                   if( site.status.toUpperCase()==this.constants.PERFORMANCE_GOOD){
+                    this.goodCount++;
+                   } else if( site.status.toUpperCase()==this.constants.PERFORMANCE_AVERAGE){
+                    this.avgCount++;
+                   } else if( site.status.toUpperCase()==this.constants.PERFORMANCE_BAD){
+                    this.badCount++;
+                   }
+                  } 
+
           this.SiteBODetailArr.push(site);
 
         });
@@ -71,7 +89,7 @@ export class Site implements OnInit {
         this.dataSource = new MatTableDataSource(this.SiteBODetailArr);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-
+        this.dataloaded=true;
       } else {
 
       }
@@ -93,6 +111,16 @@ export class Site implements OnInit {
             let site = new SiteBO();
             site.name = siteDetail.Site_Name;
             site.status = siteDetail.Overall_Site_Performance;
+            if(site.status){
+              
+                     if( site.status.toUpperCase()==this.constants.PERFORMANCE_GOOD){
+                      this.goodCount++;
+                     } else if( site.status.toUpperCase()==this.constants.PERFORMANCE_AVERAGE){
+                      this.avgCount++;
+                     } else if( site.status.toUpperCase()==this.constants.PERFORMANCE_BAD){
+                      this.badCount++;
+                     }
+                    } 
   
             this.SiteBODetailArr.push(site);
   
@@ -101,6 +129,7 @@ export class Site implements OnInit {
           this.dataSource = new MatTableDataSource(this.SiteBODetailArr);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
+          this.dataloaded=true;
   
         } else {
   

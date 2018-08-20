@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core'
 
 @Injectable()
 export class Config {
-    private DEFAULT_ENDPOINT_URL:string = 'http://localhost:8544';
-    private MODAL_ENDPOINT_URL:string = 'http://localhost:8080';
+    private DEFAULT_ENDPOINT_URL:string = 'http://USSLTCSNW2627.solutions.glbsnet.com:8082';
+    private MODAL_ENDPOINT_URL:string = 'http://USSLTCSNW2627.solutions.glbsnet.com:8080';
   
     
       public get url() {

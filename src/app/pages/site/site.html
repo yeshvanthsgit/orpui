@@ -5,6 +5,12 @@
         <header center><h2> {{typeOfParam}} </h2> </header>
     </div>
   </div>
+
+  <div style="width :30%; height: 15%">
+      <piechart *ngIf="this.dataloaded"  countGreen=" {{ this.goodCount }}" countYellow="{{ this.avgCount }}" countRed="{{ this.badCount }}"></piechart>
+      </div>
+
+
            <div class="example-container mat-elevation-z8">
 
               <div class="example-header" style="margin-left: 10px;">
