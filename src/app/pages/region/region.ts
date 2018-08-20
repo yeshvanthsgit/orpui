@@ -22,9 +22,9 @@ export class Region implements OnInit {
   title = 'Region';
   regionArr: Array<RegionBO> = new Array();
 
-  public goodCount:number=1;
-  public badCount:number=1;
-  public avgCount:number=1;
+  public goodCount:number=0;
+  public badCount:number=0;
+  public avgCount:number=0;
 
   public dataloaded:boolean=false;
    

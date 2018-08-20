@@ -29,9 +29,9 @@ export class Site implements OnInit {
   dataSource = null;
 
   
-  public goodCount:number=1;
-  public badCount:number=1;
-  public avgCount:number=1;
+  public goodCount:number=0;
+  public badCount:number=0;
+  public avgCount:number=0;
 
   public dataloaded:boolean=false;
 
