@@ -5,7 +5,7 @@ import {RegionBO} from '../../pages/bo/ObjectBO'
 import {MatTableDataSource, MatSort,MatPaginator} from '@angular/material';
 import {CdkTableModule} from '@angular/cdk/table';
 import {DataSource} from '@angular/cdk/table';
-import { Router,ActivatedRoute} from '@angular/router';
+import { Router,ActivatedRoute,NavigationEnd } from '@angular/router';
 import { ViewAttributes } from '../../pages/viewAttributes/viewAttributes';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
@@ -39,7 +39,19 @@ export class Region implements OnInit {
 
 
   constructor( public constants: Constants ,public serv: Service,private http: Http,private router:Router,private route: ActivatedRoute,public dialog: MatDialog) {
-    
+    alert('constructor called');
+    this.router.routeReuseStrategy.shouldReuseRoute = function(){
+      return false;
+   }
+
+   this.router.events.subscribe((evt) => {
+      if (evt instanceof NavigationEnd) {
+         // trick the Router into believing it's last link wasn't previously loaded
+         this.router.navigated = false;
+         // if you need to scroll back to top, here is the right place
+         window.scrollTo(0, 0);
+      }
+  });
       }
 
       ngAfterViewInit() {
@@ -54,6 +66,8 @@ export class Region implements OnInit {
       }
 
   ngOnInit(): any {
+
+    alert('ng init called');
 
     
     let paramVal:any=this.route.snapshot.params.name;
