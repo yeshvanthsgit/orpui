@@ -248,11 +248,6 @@ getRefineryDetails(){
         // If the API returned a successful response, mark the user as logged in
         console.log(res);
       }, err => {
-        if(document.getElementById('successMessage') != null 
-          && document.getElementById('successMessage') != undefined ){
-            document.getElementById('successMessage').innerHTML = 'Service unavailable!';
-            document.getElementById('successMessage').setAttribute('style','color: red;');
-        }
         console.error('ERROR', err);
       });
 

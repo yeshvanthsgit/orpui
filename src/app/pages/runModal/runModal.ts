@@ -6,8 +6,8 @@ import { MatDialogRef } from '@angular/material'
 
 @Component({
     selector: 'runModal',
-    templateUrl: 'runModal.html'
-
+    templateUrl: 'runModal.html',
+    styleUrls: ['runModal.css']
 
 })
 
@@ -27,7 +27,7 @@ export class RunModal implements OnInit {
         this.runModalService.runModalForUploadedData().subscribe(event => {
             if (event != undefined && event.status == 200) {
                 console.log('Modal has run successfully!');
-                let url:any='/region';
+                let url:any='/region/'+this.randomInt(0, 1000);
                 this.dialogRef.close();
                 this.alertService.success({title:"Modal has run successfully!"}).then(this.router.navigate([url]));
                 
@@ -38,10 +38,19 @@ export class RunModal implements OnInit {
                 this.alertService.error({title:"Modal has failed to run!"}).then(this.router.navigate([url]));
             }
 
+        },error =>{
+            console.log('Service is unavailable!');
+            let url:any='/region';
+            this.dialogRef.close();
+            this.alertService.error({title:"Service is unavailable!"}).then(this.router.navigate([url]));
         });
         
         
     }
+
+    randomInt(min, max){
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+     }
 
 }
 

@@ -59,7 +59,7 @@ export class Region implements OnInit {
     let paramVal:any=this.route.snapshot.params.name;
     
 
-if(paramVal!=null && parseInt(paramVal)>0){
+if(paramVal!=null ){
 
   
   this.serv.getRegionDetails().subscribe((resp) => {

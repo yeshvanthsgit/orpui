@@ -1,10 +1,14 @@
 import { OnInit, Component } from '@angular/core';
 import { Service } from '../../../providers/index';
+import { Router, ActivatedRoute } from '@angular/router';
+import { MatDialogRef } from '@angular/material'
+import { SweetAlertService } from 'angular-sweetalert-service';
+import { error } from 'protractor';
 
 @Component({
     selector: 'uploadData',
-    templateUrl: 'uploadData.html'
-
+    templateUrl: 'uploadData.html',
+    styleUrls: ['uploadData.css']
 
 })
 
@@ -18,11 +22,10 @@ export class UploadData implements OnInit {
     currentTestFileUpload: File;
     currentTrainFileUpload: File;
 
-    constructor(private uploadService: Service) {
-        if(document.getElementById('successMessage') != null 
-             && document.getElementById('successMessage') != undefined){
-                document.getElementById('successMessage').innerHTML = '';
-         }  
+    constructor(private uploadService: Service, private alertService: SweetAlertService,
+        private dialogRef: MatDialogRef<UploadData>,
+        private router: Router, private route: ActivatedRoute) {
+
     }
 
     selectTestFile(event) {
@@ -41,10 +44,21 @@ export class UploadData implements OnInit {
 
                 if (event != undefined && event.status == 200) {
                     console.log('Files have uploaded successfully!');
-                    document.getElementById('successMessage').innerHTML = 
-                        "Testing and Training data has been uploaded successfully.";
+                    let url:any='/region/'+this.randomInt(0, 1000);
+                    this.dialogRef.close();
+                    this.alertService.success({ title: "Testing and Training data has been uploaded successfully! Please run the model." }).then(this.router.navigate([url]));
+                } else {
+                    console.log('Service is unavailable!');
+                    let url:any='/region';
+                    this.dialogRef.close();
+                    this.alertService.error({title:"Service is unavailable!"}).then(this.router.navigate([url]));
                 }
 
+            },error => {
+                console.log('Service is unavailable!');
+                let url:any='/region';
+                this.dialogRef.close();
+                this.alertService.error({title:"Service is unavailable!"}).then(this.router.navigate([url]));
             });
 
         }
@@ -52,5 +66,9 @@ export class UploadData implements OnInit {
         this.selectedTestFile = undefined;
         this.selectedTrainFile = undefined;
     }
+
+    randomInt(min, max){
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+     }
 
 }
