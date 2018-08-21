@@ -44,7 +44,7 @@ export class UploadData implements OnInit {
 
                 if (event != undefined && event.status == 200) {
                     console.log('Files have uploaded successfully!');
-                    let url:any='/region/'+this.randomInt(0, 1000);
+                    let url:any='/region/';
                     this.dialogRef.close();
                     this.alertService.success({ title: "Testing and Training data has been uploaded successfully! Please run the model." }).then(this.router.navigate([url]));
                 } else {

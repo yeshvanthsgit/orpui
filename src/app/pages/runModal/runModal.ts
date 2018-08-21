@@ -27,7 +27,7 @@ export class RunModal implements OnInit {
         this.runModalService.runModalForUploadedData().subscribe(event => {
             if (event != undefined && event.status == 200) {
                 console.log('Modal has run successfully!');
-                let url:any='/region/'+this.randomInt(0, 1000);
+                let url:any='/region/';
                 this.dialogRef.close();
                 this.alertService.success({title:"Modal has run successfully!"}).then(this.router.navigate([url]));
                 
