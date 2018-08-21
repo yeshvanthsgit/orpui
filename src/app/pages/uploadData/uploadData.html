@@ -1,5 +1,7 @@
-<header center>
-    <h2 center> Upload Testing and Training Data </h2>
+<header class="nav nav-tabs" center>
+    <div class="nav-item">
+        <h2 center> Upload Testing and Training Data </h2>
+    </div>
 </header>
 
 <div class="container">
@@ -26,9 +28,9 @@
     </div>
 
     <div class="row" style="padding-left: 40%; margin-top: 5%">
-        <button [disabled]="!selectedTestFile || !selectedTrainFile" (click)="upload()">Upload</button>
+        <button class="btn btn-primary btn-md" [disabled]="!selectedTestFile || !selectedTrainFile" (click)="upload()">Upload</button>
         &nbsp;&nbsp;&nbsp;&nbsp;
-        <button mat-button [mat-dialog-close]="true">Close</button>
+        <button class="btn btn-primary btn-md" mat-button [mat-dialog-close]="true">Close</button>
     </div>
     <div class="row" style="padding-left: 45%; margin-top: 5%">
         

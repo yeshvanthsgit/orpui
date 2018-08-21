@@ -1,6 +1,8 @@
 import { OnInit, Component } from '@angular/core';
 import { Service } from '../../../providers/index';
 import { SweetAlertService } from 'angular-sweetalert-service';
+import { Router,ActivatedRoute} from '@angular/router';
+import { MatDialogRef } from '@angular/material'
 
 @Component({
     selector: 'runModal',
@@ -14,7 +16,9 @@ export class RunModal implements OnInit {
     ngOnInit(): any {
     }
 
-    constructor(private runModalService: Service, private alertService: SweetAlertService) {
+    constructor(private runModalService: Service, private alertService: SweetAlertService,
+        private dialogRef:MatDialogRef<RunModal>, 
+        private router:Router, private route: ActivatedRoute) {
          
     }
 
@@ -23,13 +27,15 @@ export class RunModal implements OnInit {
         this.runModalService.runModalForUploadedData().subscribe(event => {
             if (event != undefined && event.status == 200) {
                 console.log('Modal has run successfully!');
-
-                this.alertService.success({title:"Modal has run successfully!"}).then(location.reload());
+                let url:any='/region';
+                this.dialogRef.close();
+                this.alertService.success({title:"Modal has run successfully!"}).then(this.router.navigate([url]));
                 
             } else{
                 console.log('Modal has failed to run!');
-                
-                this.alertService.error({title:"Modal has failed to run!"}).then(location.reload());
+                let url:any='/region';
+                this.dialogRef.close();
+                this.alertService.error({title:"Modal has failed to run!"}).then(this.router.navigate([url]));
             }
 
         });

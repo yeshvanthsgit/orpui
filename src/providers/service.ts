@@ -80,7 +80,7 @@ getRefineryDetails(){
             let seq = this.api.get(url, null, null).share();
         
             seq
-              .timeoutWith(3000, Observable.throw(new Error('Request timedout!!')))
+              .timeoutWith(30000, Observable.throw(new Error('Request timedout!!')))
               .map(res => res.json())
               .subscribe(res => {
                 // If the API returned a successful response, mark the user as logged in
@@ -272,7 +272,6 @@ getRefineryDetails(){
         console.log(res);
       }, err => {
         console.error('ERROR', err);
-        this.alertService.error({title:"Modal has failed to run!"}).then(location.reload());
       });
 
     return seq;

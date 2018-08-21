@@ -1,6 +1,8 @@
-<header center>
-        <h2 center> Run Model </h2>
-    </header>
+<header class="nav nav-tabs" center>
+    <div class="nav-item">
+        <h2 center > Run Model </h2>
+    </div>
+</header>
 
 <div class="container">
     <div class="row" style="margin-top: 5%">
@@ -10,9 +12,9 @@
     </div>
 
     <div class="row" style="padding-left: 40%; margin-top: 5%">
-        <button (click)="doConfirm()">Confirm</button>
+        <button class="btn btn-primary btn-md" (click)="doConfirm()">Confirm</button>
         &nbsp;&nbsp;&nbsp;&nbsp;
-        <button mat-button [mat-dialog-close]="true">Close</button>
+        <button class="btn btn-primary btn-md" mat-button [mat-dialog-close]="true">Close</button>
     </div>
     <div class="row" style="padding-left: 45%; margin-top: 5%">
 
