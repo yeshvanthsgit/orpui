@@ -5,9 +5,10 @@ import { DataSource } from '@angular/cdk/table';
 import { SiteBO } from '../../pages/bo/ObjectBO'
 import { Service,Constants } from '../../../providers/index';
 import { Http, Response } from '@angular/http';
-import { Router,ActivatedRoute } from '@angular/router';
+import { Router,ActivatedRoute,NavigationEnd } from '@angular/router';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { ViewAttributes } from '../../pages/viewAttributes/viewAttributes';
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 
 @Component({
   selector: 'site',
@@ -39,8 +40,20 @@ export class Site implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
 
-  constructor( public constants: Constants,public serv: Service, private http: Http, private router: Router,private route: ActivatedRoute,public dialog: MatDialog) {
+  constructor( public constants: Constants,public serv: Service, private http: Http, private router: Router,private route: ActivatedRoute,public dialog: MatDialog,private spinnerService: Ng4LoadingSpinnerService) {
 
+    this.router.routeReuseStrategy.shouldReuseRoute = function(){
+      return false;
+   }
+
+   this.router.events.subscribe((evt) => {
+      if (evt instanceof NavigationEnd) {
+         // trick the Router into believing it's last link wasn't previously loaded
+         this.router.navigated = false;
+         // if you need to scroll back to top, here is the right place
+         window.scrollTo(0, 0);
+      }
+  });
   }
 
   ngAfterViewInit() {
@@ -53,7 +66,7 @@ export class Site implements OnInit {
   }
 
   ngOnInit(): any {
-
+    this.spinnerService.show();
     let paramVal:any=this.route.snapshot.params.name;
 
     if(paramVal!=null ){
@@ -90,6 +103,7 @@ export class Site implements OnInit {
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
         this.dataloaded=true;
+        this.spinnerService.hide();
       } else {
 
       }
@@ -97,7 +111,7 @@ export class Site implements OnInit {
 
     }, (err: Response) => {
       let msg = err.json()['message'];
-
+      this.spinnerService.hide();
     })
      
     
@@ -130,6 +144,7 @@ export class Site implements OnInit {
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
           this.dataloaded=true;
+          this.spinnerService.hide();
   
         } else {
   
@@ -138,6 +153,7 @@ export class Site implements OnInit {
   
       }, (err: Response) => {
         let msg = err.json()['message'];
+        this.spinnerService.hide();
   
       })
 

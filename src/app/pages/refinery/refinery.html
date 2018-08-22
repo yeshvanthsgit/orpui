@@ -8,7 +8,7 @@
 <button class="btn btn-primary btn-md" style="float:right;margin-right:4% "  type="button"  (click)="AddRefinery()">
     Add Refinery</button>
 <content>
-
+    <ng4-loading-spinner [timeout]="40000" [loadingText]="'Fetching Refinery Details...'"> </ng4-loading-spinner>
     <div style="width :30%; height: 15%">
         <piechart *ngIf="this.dataloaded"  countGreen=" {{ this.goodCount }}" countYellow="{{ this.avgCount }}" countRed="{{ this.badCount }}"></piechart>
         </div>

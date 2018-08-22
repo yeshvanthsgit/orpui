@@ -5,7 +5,7 @@
         <header center><h2> {{typeOfParam}} </h2> </header>
     </div>
   </div>
-
+  <ng4-loading-spinner [timeout]="40000" [loadingText]="'Fetching Site Details...'"> </ng4-loading-spinner>
   <div style="width :30%; height: 15%">
       <piechart *ngIf="this.dataloaded"  countGreen=" {{ this.goodCount }}" countYellow="{{ this.avgCount }}" countRed="{{ this.badCount }}"></piechart>
       </div>

@@ -22,6 +22,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { SweetAlertService } from 'angular-sweetalert-service';
 import { PieChartComponent } from './pages/piechart/piechart'; 
 import { ChartsModule } from 'ng2-charts'; 
+import { Ng4LoadingSpinnerService,Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 import {
   
   MatTableModule,
@@ -54,12 +55,13 @@ import {
     BrowserAnimationsModule,
     MatFormFieldModule,
     MatInputModule,MatPaginatorModule,MatDialogModule,ChartsModule,
+    Ng4LoadingSpinnerModule.forRoot(),
     NgbModule.forRoot()
   ],
   entryComponents: [
     Region,Site,Refinery,ViewAttributes, UpdateRefinery,AddRefinery,UploadData,RunModal,PieChartComponent
   ],
-  providers: [Api,Config,Constants,CdkTableModule,Service,SweetAlertService],
+  providers: [Api,Config,Constants,CdkTableModule,Service,SweetAlertService,Ng4LoadingSpinnerService],
   bootstrap: [AppComponent ]
 })
 export class AppModule { }

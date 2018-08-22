@@ -8,6 +8,7 @@ import {DataSource} from '@angular/cdk/table';
 import { Router,ActivatedRoute,NavigationEnd } from '@angular/router';
 import { ViewAttributes } from '../../pages/viewAttributes/viewAttributes';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 
 
 
@@ -38,8 +39,8 @@ export class Region implements OnInit {
    @ViewChild(MatPaginator) paginator: MatPaginator;
 
 
-  constructor( public constants: Constants ,public serv: Service,private http: Http,private router:Router,private route: ActivatedRoute,public dialog: MatDialog) {
-    alert('constructor called');
+  constructor( public constants: Constants ,public serv: Service,private http: Http,private router:Router,private route: ActivatedRoute,public dialog: MatDialog,private spinnerService: Ng4LoadingSpinnerService) {
+   // alert('constructor called');
     this.router.routeReuseStrategy.shouldReuseRoute = function(){
       return false;
    }
@@ -67,9 +68,9 @@ export class Region implements OnInit {
 
   ngOnInit(): any {
 
-    alert('ng init called');
+    //alert('ng init called');
 
-    
+    this.spinnerService.show();
     let paramVal:any=this.route.snapshot.params.name;
     
 
@@ -107,6 +108,7 @@ if(paramVal!=null ){
     this.dataSource = new MatTableDataSource(this.regionArr);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+    this.spinnerService.hide();
   
     } else {
   
@@ -115,6 +117,7 @@ if(paramVal!=null ){
   
   }, (err: Response) => {
     let msg = err.json()['message'];
+    this.spinnerService.hide();
    
   });
 
@@ -149,6 +152,7 @@ if(reg.status){
   this.dataSource = new MatTableDataSource(this.regionArr);
   this.dataSource.sort = this.sort;
   this.dataSource.paginator = this.paginator;
+  this.spinnerService.hide();
 
   } else {
 
@@ -160,7 +164,7 @@ if(reg.status){
 
 }, (err: Response) => {
   let msg = err.json()['message'];
- 
+  this.spinnerService.hide();
 });
   }
 

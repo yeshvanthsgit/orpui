@@ -5,12 +5,13 @@ import {RefineryBO} from '../../pages/bo/ObjectBO'
 import {MatTableDataSource, MatSort,MatPaginator} from '@angular/material';
 import {CdkTableModule} from '@angular/cdk/table';
 import {DataSource} from '@angular/cdk/table';
-import { Router,ActivatedRoute} from '@angular/router';
+import { Router,ActivatedRoute,NavigationEnd} from '@angular/router';
 import { ViewAttributes } from '../../pages/viewAttributes/viewAttributes';
 import { UpdateRefinery } from './UpdateRefinery';
 import { AddRefinery } from './AddRefinery';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { Location } from '@angular/common';
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 
 
 @Component({
@@ -39,9 +40,23 @@ export class Refinery implements OnInit {
  
    public dataloaded:boolean=false;
 
+   
 
-  constructor( public constants: Constants,private location: Location,public serv: Service,private http: Http,private router:Router,private route: ActivatedRoute,public dialog: MatDialog) {
+
+  constructor( public constants: Constants,private location: Location,public serv: Service,private http: Http,private router:Router,private route: ActivatedRoute,public dialog: MatDialog , private spinnerService: Ng4LoadingSpinnerService) {
     
+    this.router.routeReuseStrategy.shouldReuseRoute = function(){
+      return false;
+   }
+
+   this.router.events.subscribe((evt) => {
+      if (evt instanceof NavigationEnd) {
+         // trick the Router into believing it's last link wasn't previously loaded
+         this.router.navigated = false;
+         // if you need to scroll back to top, here is the right place
+         window.scrollTo(0, 0);
+      }
+  });
       }
 
       ngAfterViewInit() {
@@ -55,7 +70,7 @@ export class Refinery implements OnInit {
 
   ngOnInit(): any {
 
-    
+    this.spinnerService.show();
     let paramVal:any=this.route.snapshot.params.name;
     
 
@@ -97,6 +112,7 @@ if(paramVal!=null){
     this.dataSource = new MatTableDataSource(this.RefineryDetailArr);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+    this.spinnerService.hide();
   
     } else {
   
@@ -139,6 +155,7 @@ if(paramVal!=null){
     this.dataSource = new MatTableDataSource(this.RefineryDetailArr);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+    this.spinnerService.hide();
   
   
     } else {
@@ -148,6 +165,7 @@ if(paramVal!=null){
   
   }, (err: Response) => {
     let msg = err.json()['message'];
+    this.spinnerService.hide();
    
   });
 
@@ -183,6 +201,7 @@ this.serv.getRefineryDetails().subscribe((resp) => {
   this.dataSource = new MatTableDataSource(this.RefineryDetailArr);
   this.dataSource.sort = this.sort;
   this.dataSource.paginator = this.paginator;
+  this.spinnerService.hide();
 
   } else {
 
@@ -216,6 +235,7 @@ public getRefineryDetails() {
     this.dataSource = new MatTableDataSource(this.RefineryDetailArr);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+    this.spinnerService.hide();
   
     } else {
   
