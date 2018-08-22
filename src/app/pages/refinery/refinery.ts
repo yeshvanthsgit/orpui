@@ -111,6 +111,11 @@ export class Refinery implements OnInit {
                   this.badCount++;
                 }
               }
+
+              if(refinery.status==="?"){
+                refinery.status="N/A"
+              }
+
               this.RefineryDetailArr.push(refinery);
 
             });
@@ -154,6 +159,11 @@ export class Refinery implements OnInit {
                   this.badCount++;
                 }
               }
+
+              if(refinery.status==="?"){
+                refinery.status="N/A"
+              }
+              
               this.RefineryDetailArr.push(refinery);
 
             });
@@ -200,6 +210,11 @@ export class Refinery implements OnInit {
                 this.badCount++;
               }
             }
+
+            if(refinery.status==="?"){
+              refinery.status="N/A"
+            }
+
             this.RefineryDetailArr.push(refinery);
 
           });
@@ -257,8 +272,8 @@ public getRefineryDetails() {
 
 public viewAttributes(refineryname:string){
   let dialogRef = this.dialog.open(ViewAttributes, {
-    width: '1000px',
-    height: '800px',
+    width: '600px',
+    height: '600px',
     data: { name: "Ref_"+refineryname }
   });
 

@@ -95,6 +95,10 @@ export class Site implements OnInit {
                    }
                   } 
 
+                  if(site.status==="?"){
+                    site.status="N/A"
+                  }
+
           this.SiteBODetailArr.push(site);
 
         });
@@ -135,6 +139,10 @@ export class Site implements OnInit {
                       this.badCount++;
                      }
                     } 
+
+                    if(site.status==="?"){
+                      site.status="N/A"
+                    }
   
             this.SiteBODetailArr.push(site);
   
@@ -173,8 +181,8 @@ export class Site implements OnInit {
 
   public viewAttributes(sitename:string){
     let dialogRef = this.dialog.open(ViewAttributes, {
-      width: '1000px',
-      height: '800px',
+      width: '600px',
+      height: '600px',
       data: { name: "Sit_"+sitename }
     });
   

@@ -97,6 +97,11 @@ if(paramVal!=null ){
           this.badCount++;
          }
         } 
+
+        if(reg.status==="?"){
+          reg.status="N/A"
+        }
+
         this.regionArr.push(reg);
   
     });   
@@ -142,6 +147,11 @@ if(reg.status){
           this.badCount++;
          }
         } 
+
+        if(reg.status==="?"){
+          reg.status="N/A"
+        }
+
       this.regionArr.push(reg);
 
   });   
@@ -189,8 +199,8 @@ public viewRefineries(regionname:string){
 
 public viewAttributes(regionname:string){
   let dialogRef = this.dialog.open(ViewAttributes, {
-    width: '1000px',
-    height: '800px',
+    width: '600px',
+    height: '600px',
     data: { name: "Reg_"+regionname }
   });
 
