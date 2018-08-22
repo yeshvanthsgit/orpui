@@ -12,6 +12,7 @@ import { AddRefinery } from './AddRefinery';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { Location } from '@angular/common';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+import { SweetAlertService } from 'angular-sweetalert-service';
 
 
 @Component({
@@ -43,7 +44,7 @@ export class Refinery implements OnInit {
    
 
 
-  constructor( public constants: Constants,private location: Location,public serv: Service,private http: Http,private router:Router,private route: ActivatedRoute,public dialog: MatDialog , private spinnerService: Ng4LoadingSpinnerService) {
+  constructor( public constants: Constants,private location: Location,public serv: Service,private http: Http,private router:Router,private route: ActivatedRoute,public dialog: MatDialog , private spinnerService: Ng4LoadingSpinnerService, private alertService : SweetAlertService) {
     
     this.router.routeReuseStrategy.shouldReuseRoute = function(){
       return false;
@@ -70,151 +71,155 @@ export class Refinery implements OnInit {
 
   ngOnInit(): any {
 
+    this.redirectOnRequest();    
+
+  }
+
+  public redirectOnRequest(){
+
     this.spinnerService.show();
-    let paramVal:any=this.route.snapshot.params.name;
-    
+    let paramVal: any = this.route.snapshot.params.name;
 
-if(paramVal!=null){
-   
-  
-   let typeOfAttr: string = paramVal;
+    if (paramVal != null) {
 
-   this.typeOfParam ='Refineries of '+ paramVal;
 
-   if(typeOfAttr.substr(0,3)==="Reg"){
+      let typeOfAttr: string = paramVal;
 
-    //nchowhan - get Refineries for specific Region
-    // alert('Refineries for :' + paramVal);
+      this.typeOfParam = 'Refineries of ' + paramVal;
 
-  this.serv.getRegionSpecificRefineryDetails(paramVal).subscribe((resp) => {
-    if (resp != null && resp.json() != null) {
-      let element = resp.json();
-      element.forEach(refineryDetail => {
-        let refinery= new RefineryBO();
+      if (typeOfAttr.substr(0, 3) === "Reg") {
 
-        refinery.name=refineryDetail.Refinery_Name;
-        refinery.status=refineryDetail.Overall_Refinery_Performance;
+        //nchowhan - get Refineries for specific Region
+        // alert('Refineries for :' + paramVal);
 
-        if(refinery.status){
-          
-                 if( refinery.status.toUpperCase()==this.constants.PERFORMANCE_GOOD){
+        this.serv.getRegionSpecificRefineryDetails(paramVal).subscribe((resp) => {
+          if (resp != null && resp.json() != null) {
+            let element = resp.json();
+            element.forEach(refineryDetail => {
+              let refinery = new RefineryBO();
+
+              refinery.name = refineryDetail.Refinery_Name;
+              refinery.status = refineryDetail.Overall_Refinery_Performance;
+
+              if (refinery.status) {
+
+                if (refinery.status.toUpperCase() == this.constants.PERFORMANCE_GOOD) {
                   this.goodCount++;
-                 } else if( refinery.status.toUpperCase()==this.constants.PERFORMANCE_AVERAGE){
+                } else if (refinery.status.toUpperCase() == this.constants.PERFORMANCE_AVERAGE) {
                   this.avgCount++;
-                 } else if( refinery.status.toUpperCase()==this.constants.PERFORMANCE_BAD){
+                } else if (refinery.status.toUpperCase() == this.constants.PERFORMANCE_BAD) {
                   this.badCount++;
-                 }
                 }
-        this.RefineryDetailArr.push(refinery);
-  
-    });   
-    this.dataloaded=true;
-    this.dataSource = new MatTableDataSource(this.RefineryDetailArr);
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-    this.spinnerService.hide();
-  
-    } else {
-  
-    }
-  
-  
-  }, (err: Response) => {
-    let msg = err.json()['message'];
-   
-  });
-}else{
-
-  // nchowhan - get Refineries for specific site
-  // alert('Refineries for :' + paramVal);
-
-
-  this.serv.getSiteSpecificRefineryDetails(paramVal).subscribe((resp) => {
-    if (resp != null && resp.json() != null) {
-      let element = resp.json();
-      element.forEach(refineryDetail => {
-        let refinery= new RefineryBO();
-
-        refinery.name=refineryDetail.Refinery_Name;
-        refinery.status=refineryDetail.Overall_Refinery_Performance;
-
-        if(refinery.status){
-          
-                 if( refinery.status.toUpperCase()==this.constants.PERFORMANCE_GOOD){
-                  this.goodCount++;
-                 } else if( refinery.status.toUpperCase()==this.constants.PERFORMANCE_AVERAGE){
-                  this.avgCount++;
-                 } else if( refinery.status.toUpperCase()==this.constants.PERFORMANCE_BAD){
-                  this.badCount++;
-                 }
-                }
-        this.RefineryDetailArr.push(refinery);
-  
-    });   
-    this.dataloaded=true;
-    this.dataSource = new MatTableDataSource(this.RefineryDetailArr);
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-    this.spinnerService.hide();
-  
-  
-    } else {
-  
-    }
-  
-  
-  }, (err: Response) => {
-    let msg = err.json()['message'];
-    this.spinnerService.hide();
-   
-  });
-
-}
-
-}else{
-
-  this.typeOfParam ="Refineries";
-  //nchowhan - Get al Refinery details
-this.serv.getRefineryDetails().subscribe((resp) => {
-  if (resp != null && resp.json() != null) {
-    let element = resp.json()
-    ;
-    element.forEach(refineryDetail => {
-      let refinery= new RefineryBO();
-
-      refinery.name=refineryDetail.Refinery_Name;
-      refinery.status=refineryDetail.Overall_Refinery_Performance;
-      if(refinery.status){
-        
-               if( refinery.status.toUpperCase()==this.constants.PERFORMANCE_GOOD){
-                this.goodCount++;
-               } else if( refinery.status.toUpperCase()==this.constants.PERFORMANCE_AVERAGE){
-                this.avgCount++;
-               } else if( refinery.status.toUpperCase()==this.constants.PERFORMANCE_BAD){
-                this.badCount++;
-               }
               }
-      this.RefineryDetailArr.push(refinery);
+              this.RefineryDetailArr.push(refinery);
 
-  });   
-  this.dataloaded=true;
-  this.dataSource = new MatTableDataSource(this.RefineryDetailArr);
-  this.dataSource.sort = this.sort;
-  this.dataSource.paginator = this.paginator;
-  this.spinnerService.hide();
+            });
+            this.dataloaded = true;
+            this.dataSource = new MatTableDataSource(this.RefineryDetailArr);
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator;
+            this.spinnerService.hide();
 
-  } else {
+          } else {
 
+          }
+
+
+        }, (err: Response) => {
+          let msg = err.json()['message'];
+
+        });
+      } else {
+
+        // nchowhan - get Refineries for specific site
+        // alert('Refineries for :' + paramVal);
+
+
+        this.serv.getSiteSpecificRefineryDetails(paramVal).subscribe((resp) => {
+          if (resp != null && resp.json() != null) {
+            let element = resp.json();
+            element.forEach(refineryDetail => {
+              let refinery = new RefineryBO();
+
+              refinery.name = refineryDetail.Refinery_Name;
+              refinery.status = refineryDetail.Overall_Refinery_Performance;
+
+              if (refinery.status) {
+
+                if (refinery.status.toUpperCase() == this.constants.PERFORMANCE_GOOD) {
+                  this.goodCount++;
+                } else if (refinery.status.toUpperCase() == this.constants.PERFORMANCE_AVERAGE) {
+                  this.avgCount++;
+                } else if (refinery.status.toUpperCase() == this.constants.PERFORMANCE_BAD) {
+                  this.badCount++;
+                }
+              }
+              this.RefineryDetailArr.push(refinery);
+
+            });
+            this.dataloaded = true;
+            this.dataSource = new MatTableDataSource(this.RefineryDetailArr);
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator;
+            this.spinnerService.hide();
+
+
+          } else {
+
+          }
+
+
+        }, (err: Response) => {
+          let msg = err.json()['message'];
+          this.spinnerService.hide();
+
+        });
+
+      }
+
+    } else {
+
+      this.typeOfParam = "Refineries";
+      //nchowhan - Get al Refinery details
+      this.serv.getRefineryDetails().subscribe((resp) => {
+        if (resp != null && resp.json() != null) {
+          let element = resp.json()
+            ;
+          element.forEach(refineryDetail => {
+            let refinery = new RefineryBO();
+
+            refinery.name = refineryDetail.Refinery_Name;
+            refinery.status = refineryDetail.Overall_Refinery_Performance;
+            if (refinery.status) {
+
+              if (refinery.status.toUpperCase() == this.constants.PERFORMANCE_GOOD) {
+                this.goodCount++;
+              } else if (refinery.status.toUpperCase() == this.constants.PERFORMANCE_AVERAGE) {
+                this.avgCount++;
+              } else if (refinery.status.toUpperCase() == this.constants.PERFORMANCE_BAD) {
+                this.badCount++;
+              }
+            }
+            this.RefineryDetailArr.push(refinery);
+
+          });
+          this.dataloaded = true;
+          this.dataSource = new MatTableDataSource(this.RefineryDetailArr);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+          this.spinnerService.hide();
+
+        } else {
+
+        }
+
+
+      }, (err: Response) => {
+        let msg = err.json()['message'];
+
+      });
+    }
   }
-
-
-}, (err: Response) => {
-  let msg = err.json()['message'];
- 
-});
-  }
-
-}
 
 public getRefineryDetails() {
 
@@ -291,18 +296,50 @@ public AddRefinery(){
 }
 
 
-public DeleteRefinery(refineryname:string){
+  public DeleteRefinery(refineryname: string) {
 
-  this.serv.deleteRefineryDetails(refineryname).subscribe((resp) => {
-      let element = resp;
-  console.log(element);
-  this.getRefineryDetails();
-  }, (err: Response) => {
-    let msg = err.json()['message'];
-   
-  });
+    this.alertService.confirm({
+      title: "Delete Refinery",
+      text: "Are you sure that you want to delete this refinery?",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Delete",
+      confirmButtonColor: "#0077b3",
+      cancelButtonColor: "#0077b3"
+    }).then(result => {
+      if (result.value) {
+        this.serv.deleteRefineryDetails(refineryname).subscribe((resp) => {
+          let element = resp;
+          console.log(element);
+          this.alertService.alert({
+            type: "success",
+            text: "Refinery deleted!",
+          }).then(result => {
+            if (result.value) {
+              this.redirectOnRequest();
+              let paramVal: any = this.route.snapshot.params.name;
+              let url: any
+              if (paramVal != undefined) {
+                url = '/refinery/' + paramVal;
+              } else {
+                url = '/refinery';
+              }
+              this.router.navigate([url]);
+            }
+          });
 
-}
+        }, (err: Response) => {
+          let msg = err.json()['message'];
+        });
+      } else {
+        //cancel operation called
+      }
+
+    }).catch(function () {
+      console.log('This action is canceled!');
+    });
+
+  }
 
 
    public UpdateRefinery(refineryModal : JSON){
