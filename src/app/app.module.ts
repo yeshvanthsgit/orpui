@@ -23,6 +23,7 @@ import { SweetAlertService } from 'angular-sweetalert-service';
 import { PieChartComponent } from './pages/piechart/piechart'; 
 import { ChartsModule } from 'ng2-charts'; 
 import { Ng4LoadingSpinnerService,Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
+import {HttpClientModule} from '@angular/common/http';
 import {
   
   MatTableModule,
@@ -33,8 +34,9 @@ import {
   MatInputModule,
   MatPaginatorModule,
   MatDialogModule,
+  MatIconModule
 } from '@angular/material'; 
- 
+
 
 
 
@@ -54,7 +56,8 @@ import {
     MatSortModule,
     BrowserAnimationsModule,
     MatFormFieldModule,
-    MatInputModule,MatPaginatorModule,MatDialogModule,ChartsModule,
+    MatInputModule,MatPaginatorModule,MatDialogModule,ChartsModule,MatIconModule,
+    HttpClientModule,
     Ng4LoadingSpinnerModule.forRoot(),
     NgbModule.forRoot()
   ],

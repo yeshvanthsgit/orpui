@@ -13,6 +13,8 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { Location } from '@angular/common';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { SweetAlertService } from 'angular-sweetalert-service';
+import {MatIconRegistry} from '@angular/material';
+import {DomSanitizer} from '@angular/platform-browser';
 
 
 @Component({
@@ -44,8 +46,15 @@ export class Refinery implements OnInit {
    
 
 
-  constructor( public constants: Constants,private location: Location,public serv: Service,private http: Http,private router:Router,private route: ActivatedRoute,public dialog: MatDialog , private spinnerService: Ng4LoadingSpinnerService, private alertService : SweetAlertService) {
+  constructor( public constants: Constants,private location: Location,public serv: Service,private http: Http,private router:Router,private route: ActivatedRoute,public dialog: MatDialog , private spinnerService: Ng4LoadingSpinnerService, private alertService : SweetAlertService,iconRegistry: MatIconRegistry,sanitizer: DomSanitizer) {
     
+    iconRegistry.addSvgIcon(
+      'edit',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/edit.svg'));
+      iconRegistry.addSvgIcon(
+        'delete',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/delete.svg'));
+        
     this.router.routeReuseStrategy.shouldReuseRoute = function(){
       return false;
    }
