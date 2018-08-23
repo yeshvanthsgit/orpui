@@ -48,6 +48,7 @@ export class UploadData implements OnInit {
                     this.dialogRef.close();
                     this.alertService.success({ title: "Testing and Training data has been uploaded successfully! Please run the model." }).then(this.router.navigate([url]));
                 } else {
+                    alert(event);
                     console.log('Service is unavailable!');
                     let url:any='/region';
                     this.dialogRef.close();
@@ -55,10 +56,26 @@ export class UploadData implements OnInit {
                 }
 
             },error => {
-                console.log('Service is unavailable!');
-                let url:any='/region';
-                this.dialogRef.close();
-                this.alertService.error({title:"Service is unavailable!"}).then(this.router.navigate([url]));
+                if (error != undefined && error.status == 406) {
+                    let response: String = JSON.stringify(error.json());
+                    let messageArr: String[] = response.substring(1, response.length - 1).split(",", 2);
+                    console.log(messageArr[1]);
+                    let messageAttrArr: String[] = messageArr[1].substring(1, messageArr[1].length - 1).split("|");
+                    console.log('Invalid data uploaded!');
+                    let url: any = '/region';
+                    this.dialogRef.close();
+                    this.alertService.error({
+                        title: "Invalid data uploaded in \n" + 
+                        "Sheet: "+messageAttrArr[1] + "\n "+"Row: " +
+                            messageAttrArr[2] + "\n"+"Column: " + messageAttrArr[3] + "\n"+
+                            "Incorrect Value: " + messageAttrArr[4] + "\n"+"Values can either be Good,Bad or Average only."
+                    }).then(this.router.navigate([url]));
+                } else {
+                    console.log('Service is unavailable!');
+                    let url: any = '/region';
+                    this.dialogRef.close();
+                    this.alertService.error({ title: "Service is unavailable!" }).then(this.router.navigate([url]));
+                }
             });
 
         }
