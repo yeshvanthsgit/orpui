@@ -195,8 +195,6 @@ public viewRefineries(regionname:string){
 
 }
 
-
-
 public viewAttributes(regionname:string){
   let dialogRef = this.dialog.open(ViewAttributes, {
     width: '600px',
