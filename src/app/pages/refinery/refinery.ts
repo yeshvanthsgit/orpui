@@ -88,7 +88,6 @@ export class Refinery implements OnInit {
 
     this.spinnerService.show();
     let paramVal: any = this.route.snapshot.params.name;
-
     if (paramVal != null) {
 
 
@@ -300,7 +299,8 @@ public SearchRefinery(refineryname:string){
     data: { name: refineryname}
   });
   dialogRef.afterClosed().subscribe(result => {
-    console.log('The dialog was closed');
+    this.RefineryDetailArr = new Array();
+    this.redirectOnRequest();  
     
   });
 
@@ -313,7 +313,8 @@ public AddRefinery(){
     data: {}
   });
   dialogRef.afterClosed().subscribe(result => {
-    console.log('The dialog was closed');
+    this.RefineryDetailArr = new Array();
+    this.redirectOnRequest();  
     
   });
 
@@ -363,33 +364,7 @@ public AddRefinery(){
       console.log('This action is canceled!');
     });
 
-  }
-
-
-   public UpdateRefinery(refineryModal : JSON){
-    
-
-    for(var key in refineryModal){
-			if("good" == refineryModal[key] || "average" == refineryModal[key] || "bad" == refineryModal[key]){
-        refineryModal[key] = refineryModal[key].toUpperCase();
-			}
-		}
-		
-		console.log(refineryModal);
-		
-		var id = refineryModal["_id"]["$oid"];
-		refineryModal["id"] = id;
-
-
-      this.serv.updateRefineryDetails(refineryModal).subscribe((resp) => {
-          let element = resp;
-        location.reload();
-      }, (err: Response) => {
-        let msg = err.json()['message'];
-       
-      });
-    
-    } 
+  } 
 
 
 }

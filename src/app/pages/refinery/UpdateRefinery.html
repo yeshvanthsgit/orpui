@@ -1,197 +1,570 @@
-<header center><h2 center style="color:blue;">  {{title}} </h2> </header>
-<content style="animation: ease-in-out">
-        
+<header center id="top" *ngIf="displayUpdateFormData"><h2 center style="color:blue;text-align: center">  {{title}} </h2> </header>
+
+
+
+
+<content style="animation: ease-in-out" >
+        <h6 center style="color:green;text-align: center"><b>  {{message}}</b> </h6>    
+
             <span layout="row"><hr flex/></span>
 
 
 
-            <div >
-                <div class="form-group row" style="margin-top:3%;" >
+            <div *ngIf="displayUpdateFormData">
+
+                <form class="form-horizontal"
+                novalidate
+                (ngSubmit)="UpdateRefinery(refineryModal)"
+                [formGroup]="refineryForm">
+              <fieldset>
+
+
+                <div class="form-group row" style="margin-top:3%;" 
+                [ngClass]="{'has-error': (refineryForm.get('Refinery_Name').touched || 
+                refineryForm.get('Refinery_Name').dirty) &&
+                                              !refineryForm.get('Refinery_Name').valid }">
                <div class="col-lg-6">
-              <label class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Refinery Name</label></div>
+              <label class="control-label" for="Refinery_Name" style="display:block;text-align:left;margin-left: 15%">Refinery Name</label></div>
               <div class="col-lg-6">
-                <input type="text" class="form-control" [(ngModel)]="refineryModal['Refinery_Name']"  />
+                <input type="text" disabled="true" class="form-control" formControlName="Refinery_Name" [(ngModel)]="refineryModal['Refinery_Name']" />
+                <span class="help-block"     *ngIf="(refineryForm.get('Refinery_Name').touched || 
+                refineryForm.get('Refinery_Name').dirty) && 
+                refineryForm.get('Refinery_Name').errors">
+<span *ngIf="refineryForm.get('Refinery_Name').errors.required">
+Please Enter Refinery Name !
+</span>
+
+</span>
               </div>
             </div>
-            
-                  <div class="form-group row" style="margin-top:2%;">
-                  <div class="col-lg-6"  >
-              <label class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Site Name</label></div>
-              <div class="col-lg-6">
-                <input type="text" class="form-control" [(ngModel)]="refineryModal['Site_Name']" ng-disabled="isColDisabled['Site_Name']" />
-              </div>
-            </div>
-            
-                  <div class="form-group row" style="margin-top:2%;">
-                  <div class="col-lg-6"  >
-              <label class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Thermal Cracking Pressure</label></div>
-              <div class="col-lg-6">
-              
-                 <input type="text" class="form-control" [(ngModel)]="refineryModal['Thermal_Cracking_Pressure']" ng-disabled="isColDisabled['Thermal_Cracking_Pressure']" />
-              </div>
-            </div>
-          
-                    <div class="form-group row" style="margin-top:2%;">
-                    <div class="col-lg-6"  >
-              <label class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Thermal Cracking Temperature</label></div>
-              <div class="col-lg-6">
-                 <input type="text" class="form-control" [(ngModel)]="refineryModal['Thermal_Cracking_Temperature']" ng-disabled="isColDisabled['Thermal_Cracking_Temperature']" />
-              </div>
-            </div>
-            
-            <div class="form-group row" style="margin-top:2%;">
-            <div class="col-lg-6"  >
-              <label class="col-form-label" style="display:block;text-align:left;margin-left: 15%"> Vaccum Residue Heavier Hydrocarbons</label></div>
-              <div class="col-lg-6">
-                  <input type="text" class="form-control" [(ngModel)]="refineryModal['Vaccum_Residue_Heavier_Hydrocarbons']" ng-disabled="isColDisabled['Vaccum_Residue_Heavier_Hydrocarbons']" />
-              </div>
-            </div>
-          
-            <div class="form-group row" style="margin-top:2%;">
-            <div class="col-lg-6"  >
-              <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Claus H2S</label></div>
-              <div class="col-lg-6">
-                      <input type="text" class="form-control" [(ngModel)]="refineryModal['Claus_H2S']" ng-disabled="isColDisabled['Claus_H2S']" />
-          
-              </div>
-            </div>
-            
-              <div class="form-group row" style="margin-top:2%;">
-              <div class="col-lg-6"  >
-              <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Coking Feed</label></div>
-              <div class="col-lg-6">
-               <input type="text" class="form-control" [(ngModel)]="refineryModal['Coking_Feed']" ng-disabled="isColDisabled['Coking_Feed']" />
-              </div>
-            </div>
-            
-            
-              <div class="form-group row" style="margin-top:2%;">
-              <div class="col-lg-6"  >
-              <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Condensor Water</label></div>
-              <div class="col-lg-6">
-                <input type="text" class="form-control" [(ngModel)]="refineryModal['Condensor_Water']" ng-disabled="isColDisabled['Condensor_Water']" />
-              </div>
-            </div>
-            
-              <div class="form-group row" style="margin-top:2%;"><div class="col-lg-6"  >
-              <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Condensor Naphtha</label></div>
-              <div class="col-lg-6">
-                <input type="text" class="form-control" [(ngModel)]="refineryModal['Condensor_Naphtha']" ng-disabled="isColDisabled['Condensor_Naphtha']" />
-              </div>
-            </div>
-            
-              <div class="form-group row" style="margin-top:2%;"><div class="col-lg-6"  >
-              <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Cracking Side Chained Aromatics Chained Aromatics</label></div>
-              <div class="col-lg-6">
-               <input type="text" class="form-control" [(ngModel)]="refineryModal['Cracking_Side_Chained_Aromatics_Chained_Aromatics']" ng-disabled="isColDisabled['Cracking_Side_Chained_Aromatics_Chained_Aromatics']" />
-              </div>
-            </div>
-            
-              <div class="form-group row" style="margin-top:2%;"><div class="col-lg-6"  >
-              <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Crude Oil ASTM Distillation</label></div>
-              <div class="col-lg-6">
-              <input type="text" class="form-control" [(ngModel)]="refineryModal['Crude_Oil_ASTM_Distillation']" ng-disabled="isColDisabled['Crude_Oil_ASTM_Distillation']" />
-              </div>
-            </div>
-            
-              <div class="form-group row" style="margin-top:2%;"><div class="col-lg-6"  >
-              <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Crude Oil Boiling Point</label></div>
-              <div class="col-lg-6">
-              <input type="text" class="form-control" [(ngModel)]="refineryModal['Crude_Oil_Boiling_Point']" ng-disabled="isColDisabled['Crude_Oil_boiling point']" />
-              </div>
-            </div>
-            
-              <div class="form-group row" style="margin-top:2%;"><div class="col-lg-6"  >
-              <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Crude Oil Density</label></div>
-              <div class="col-lg-6">
-               <input type="text" class="form-control" [(ngModel)]="refineryModal['Crude_Oil_Density']" ng-disabled="isColDisabled['Crude_Oil_Density']" />
-              </div>
-            </div>
-            
-              <div class="form-group row" style="margin-top:2%;"><div class="col-lg-6"  >
-              <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Crude Oil Viscosity</label></div>
-              <div class="col-lg-6">
-               <input type="text" class="form-control" [(ngModel)]="refineryModal['Crude_Oil_Viscosity']" ng-disabled="isColDisabled['Crude_Oil_Viscosity']" />
-              </div>
-            </div>
-            
-              <div class="form-group row" style="margin-top:2%;"><div class="col-lg-6"  >
-              <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Furnance Fuel Oil</label></div>
-              <div class="col-lg-6">
-              <input type="text" class="form-control" [(ngModel)]="refineryModal['Furnance_Fuel_Oil']" ng-disabled="isColDisabled['Furnance_Fuel_Oil']" />
-              </div>
-            </div>
-            
-              <div class="form-group row" style="margin-top:2%;"><div class="col-lg-6"  >
-              <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Gas Processing Methane</label></div>
-              <div class="col-lg-6">
-               <input type="text" class="form-control" [(ngModel)]="refineryModal['Gas_Processing_Methane']" ng-disabled="isColDisabled['Gas_Processing_Methane']" />
-              </div>
-            </div>
-            
-            
-                <div class="form-group row" style="margin-top:2%;"><div class="col-lg-6"  >
-              <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Hydrogen Production Methane Reforming</label></div>
-              <div class="col-lg-6">
-              <input type="text" class="form-control" [(ngModel)]="refineryModal['Hydrogen_Production_Methane_Reforming']" ng-disabled="isColDisabled['Hydrogen_Production_Methane_Reforming']" />
-              </div>
-            </div>
-            
-                <div class="form-group row" style="margin-top:2%;"><div class="col-lg-6"  >
-              <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Hydrogen Production Technology Sulphur</label></div>
-              <div class="col-lg-6">
-                <input type="text" class="form-control" [(ngModel)]="refineryModal['Hydrogen_Production_Technology_Sulphur']" ng-disabled="isColDisabled['Hydrogen_Production_Technology_Sulphur']" />
-              </div>
-            </div>
-            
-            
-                <div class="form-group row" style="margin-top:2%;"><div class="col-lg-6"  >
-              <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Hydrotreating Organic Sulphur Compounds</label></div>
-              <div class="col-lg-6">
-              <input type="text" class="form-control" [(ngModel)]="refineryModal['Hydrotreating_Organic_Sulphur_Compounds']" ng-disabled="isColDisabled['Hydrotreating_Organic_Sulphur_Compounds']" />
-              </div>
-            </div>
-            
-            
-                <div class="form-group row" style="margin-top:2%;"><div class="col-lg-6"  >
-              <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Olefin Polymerization Process Technology C3 C4 Olefin Feed</label></div>
-              <div class="col-lg-6">
-              <input type="text" class="form-control" [(ngModel)]="refineryModal['Olefin_Polymerization_Process_Technology_C3_C4_Olefin_Feed']" ng-disabled="isColDisabled['Olefin_Polymerization_Process_Technology_C3_C4_Olefin_Feed']" />
-              </div>
-            </div>
-            
-                <div class="form-group row" style="margin-top:2%;"><div class="col-lg-6"  >
-              <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Petroleum Refinery Hydrocarbon Balances</label></div>
-              <div class="col-lg-6">
-               <input type="text" class="form-control" [(ngModel)]="refineryModal['Petroleum_Refinery_Hydrocarbon_Balances']" ng-disabled="isColDisabled['Petroleum_Refinery_Hydrocarbon_Balances']" />
-              </div>
-            </div>
-            
-                <div class="form-group row" style="margin-top:2%;"><div class="col-lg-6"  >
-              <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Reaction Mechanism Pressure</label></div>
-              <div class="col-lg-6">
-              <input type="text" class="form-control" [(ngModel)]="refineryModal['Reaction_Mechanism_Pressure']" ng-disabled="isColDisabled['Reaction_Mechanism_Pressure']" />
-              </div>
-            </div>
-          
-                <div class="form-group row" style="margin-top:2%;"><div class="col-lg-6"  >
-              <label  class="col-form-label" style="display:block;text-align:left;margin-left: 15%">Crude Oil API Gravity</label></div>
-              <div class="col-lg-6">
-              <input type="text" class="form-control" [(ngModel)]="refineryModal['Crude_Oil_API_Gravity']" ng-disabled="isColDisabled['Crude_Oil_API_Gravity']" />
-              </div>
-            </div>
-          
+
+
+            <div class="form-group row" style="margin-top:3%;" 
+            [ngClass]="{'has-error': (refineryForm.get('Site_Name').touched || 
+            refineryForm.get('Site_Name').dirty) &&
+                                          !refineryForm.get('Site_Name').valid }">
+           <div class="col-lg-6">
+          <label class="control-label" for="Site_Name" style="display:block;text-align:left;margin-left: 15%">Site Name</label></div>
+          <div class="col-lg-6">
+            <input type="text" class="form-control" formControlName="Site_Name" [(ngModel)]="refineryModal['Site_Name']" />
+            <span class="help-block"     *ngIf="(refineryForm.get('Site_Name').touched || 
+            refineryForm.get('Site_Name').dirty) && 
+            refineryForm.get('Site_Name').errors">
+<span *ngIf="refineryForm.get('Site_Name').errors.required">
+Please Enter Site Name !
+</span>
+
+</span>
+          </div>
+        </div>
+
+
+
+
+        <div class="form-group row" style="margin-top:3%;" 
+        [ngClass]="{'has-error': (refineryForm.get('Thermal_Cracking_Pressure').touched || 
+        refineryForm.get('Thermal_Cracking_Pressure').dirty) &&
+                                      !refineryForm.get('Thermal_Cracking_Pressure').valid }">
+       <div class="col-lg-6">
+      <label class="control-label" for="Thermal_Cracking_Pressure" style="display:block;text-align:left;margin-left: 15%">Thermal Cracking Pressure</label></div>
+      <div class="col-lg-6">
+        <input type="text" class="form-control" formControlName="Thermal_Cracking_Pressure" [(ngModel)]="refineryModal['Thermal_Cracking_Pressure']" />
+        <span class="help-block"     *ngIf="(refineryForm.get('Thermal_Cracking_Pressure').touched || 
+        refineryForm.get('Thermal_Cracking_Pressure').dirty) && 
+        refineryForm.get('Thermal_Cracking_Pressure').errors">
+<span *ngIf="refineryForm.get('Thermal_Cracking_Pressure').errors.required">
+Please Enter Thermal Cracking Pressure !
+</span>
+<span *ngIf="refineryForm.get('Thermal_Cracking_Pressure').errors.gab">
+    Please enter Good, Bad or Average only !
+    </span>
+</span>
+      </div>
+    </div>
+
+
+
+    <div class="form-group row" style="margin-top:3%;" 
+    [ngClass]="{'has-error': (refineryForm.get('Thermal_Cracking_Temperature').touched || 
+    refineryForm.get('Thermal_Cracking_Temperature').dirty) &&
+                                  !refineryForm.get('Thermal_Cracking_Temperature').valid }">
+   <div class="col-lg-6">
+  <label class="control-label" for="Thermal_Cracking_Temperature" style="display:block;text-align:left;margin-left: 15%">Thermal Cracking Temperature</label></div>
+  <div class="col-lg-6">
+    <input type="text" class="form-control" formControlName="Thermal_Cracking_Temperature" [(ngModel)]="refineryModal['Thermal_Cracking_Temperature']" />
+    <span class="help-block"     *ngIf="(refineryForm.get('Thermal_Cracking_Temperature').touched || 
+    refineryForm.get('Thermal_Cracking_Temperature').dirty) && 
+    refineryForm.get('Thermal_Cracking_Temperature').errors">
+<span *ngIf="refineryForm.get('Thermal_Cracking_Temperature').errors.required">
+Please Enter Thermal Cracking Temperature !
+</span>
+<span *ngIf="refineryForm.get('Thermal_Cracking_Temperature').errors.gab">
+    Please enter Good, Bad or Average only !
+    </span>
+</span>
+  </div>
+</div>
+
+
+
+<div class="form-group row" style="margin-top:3%;" 
+[ngClass]="{'has-error': (refineryForm.get('Vaccum_Residue_Heavier_Hydrocarbons').touched || 
+refineryForm.get('Vaccum_Residue_Heavier_Hydrocarbons').dirty) &&
+                              !refineryForm.get('Vaccum_Residue_Heavier_Hydrocarbons').valid }">
+<div class="col-lg-6">
+<label class="control-label" for="Vaccum_Residue_Heavier_Hydrocarbons" style="display:block;text-align:left;margin-left: 15%">Vaccum Residue Heavier Hydrocarbons</label></div>
+<div class="col-lg-6">
+<input type="text" class="form-control" formControlName="Vaccum_Residue_Heavier_Hydrocarbons" [(ngModel)]="refineryModal['Vaccum_Residue_Heavier_Hydrocarbons']" />
+<span class="help-block"     *ngIf="(refineryForm.get('Vaccum_Residue_Heavier_Hydrocarbons').touched || 
+refineryForm.get('Vaccum_Residue_Heavier_Hydrocarbons').dirty) && 
+refineryForm.get('Vaccum_Residue_Heavier_Hydrocarbons').errors">
+<span *ngIf="refineryForm.get('Vaccum_Residue_Heavier_Hydrocarbons').errors.required">
+Please Enter Vaccum Residue Heavier Hydrocarbons !
+</span>
+<span *ngIf="refineryForm.get('Thermal_Cracking_Temperature').errors.gab">
+    Please enter Good, Bad or Average only !
+    </span>
+</span>
+</div>
+</div>
+
+
+
+
+<div class="form-group row" style="margin-top:3%;" 
+[ngClass]="{'has-error': (refineryForm.get('Claus_H2S').touched || 
+refineryForm.get('Claus_H2S').dirty) &&
+                              !refineryForm.get('Claus_H2S').valid }">
+<div class="col-lg-6">
+<label class="control-label" for="Claus_H2S" style="display:block;text-align:left;margin-left: 15%">Claus H2S</label></div>
+<div class="col-lg-6">
+<input type="text" class="form-control" formControlName="Claus_H2S" [(ngModel)]="refineryModal['Claus_H2S']" />
+<span class="help-block"     *ngIf="(refineryForm.get('Claus_H2S').touched || 
+refineryForm.get('Claus_H2S').dirty) && 
+refineryForm.get('Claus_H2S').errors">
+<span *ngIf="refineryForm.get('Claus_H2S').errors.required">
+Please Enter Claus H2S !
+</span>
+<span *ngIf="refineryForm.get('Claus_H2S').errors.gab">
+    Please enter Good, Bad or Average only !
+    </span>
+</span>
+</div>
+</div>
+
+
+
+<div class="form-group row" style="margin-top:3%;" 
+[ngClass]="{'has-error': (refineryForm.get('Coking_Feed').touched || 
+refineryForm.get('Coking_Feed').dirty) &&
+                              !refineryForm.get('Coking_Feed').valid }">
+<div class="col-lg-6">
+<label class="control-label" for="Coking_Feed" style="display:block;text-align:left;margin-left: 15%">Coking Feed</label></div>
+<div class="col-lg-6">
+<input type="text" class="form-control" formControlName="Coking_Feed" [(ngModel)]="refineryModal['Coking_Feed']" />
+<span class="help-block"     *ngIf="(refineryForm.get('Coking_Feed').touched || 
+refineryForm.get('Coking_Feed').dirty) && 
+refineryForm.get('Coking_Feed').errors">
+<span *ngIf="refineryForm.get('Coking_Feed').errors.required">
+Please Enter Coking Feed !
+</span>
+<span *ngIf="refineryForm.get('Coking_Feed').errors.gab">
+    Please enter Good, Bad or Average only !
+    </span>
+</span>
+</div>
+</div>
+
+
+
+
+<div class="form-group row" style="margin-top:3%;" 
+[ngClass]="{'has-error': (refineryForm.get('Condensor_Water').touched || 
+refineryForm.get('Condensor_Water').dirty) &&
+                              !refineryForm.get('Condensor_Water').valid }">
+<div class="col-lg-6">
+<label class="control-label" for="Condensor_Water" style="display:block;text-align:left;margin-left: 15%">Condensor Water</label></div>
+<div class="col-lg-6">
+<input type="text" class="form-control" formControlName="Condensor_Water" [(ngModel)]="refineryModal['Condensor_Water']" />
+<span class="help-block"     *ngIf="(refineryForm.get('Condensor_Water').touched || 
+refineryForm.get('Condensor_Water').dirty) && 
+refineryForm.get('Condensor_Water').errors">
+<span *ngIf="refineryForm.get('Condensor_Water').errors.required">
+Please Enter Condensor Water !
+</span>
+<span *ngIf="refineryForm.get('Condensor_Water').errors.gab">
+    Please enter Good, Bad or Average only !
+    </span>
+</span>
+</div>
+</div>
+
+
+
+<div class="form-group row" style="margin-top:3%;" 
+[ngClass]="{'has-error': (refineryForm.get('Condensor_Naphtha').touched || 
+refineryForm.get('Condensor_Naphtha').dirty) &&
+                              !refineryForm.get('Condensor_Naphtha').valid }">
+<div class="col-lg-6">
+<label class="control-label" for="Condensor_Naphtha" style="display:block;text-align:left;margin-left: 15%">Condensor Naphtha</label></div>
+<div class="col-lg-6">
+<input type="text" class="form-control" formControlName="Condensor_Naphtha" [(ngModel)]="refineryModal['Condensor_Naphtha']" />
+<span class="help-block"     *ngIf="(refineryForm.get('Condensor_Naphtha').touched || 
+refineryForm.get('Condensor_Naphtha').dirty) && 
+refineryForm.get('Condensor_Naphtha').errors">
+<span *ngIf="refineryForm.get('Condensor_Naphtha').errors.required">
+Please Enter Condensor Naphtha !
+</span>
+<span *ngIf="refineryForm.get('Condensor_Naphtha').errors.gab">
+    Please enter Good, Bad or Average only !
+    </span>
+</span>
+</div>
+</div>
+
+
+<div class="form-group row" style="margin-top:3%;" 
+[ngClass]="{'has-error': (refineryForm.get('Cracking_Side_Chained_Aromatics_Chained_Aromatics').touched || 
+refineryForm.get('Cracking_Side_Chained_Aromatics_Chained_Aromatics').dirty) &&
+                              !refineryForm.get('Cracking_Side_Chained_Aromatics_Chained_Aromatics').valid }">
+<div class="col-lg-6">
+<label class="control-label" for="Cracking_Side_Chained_Aromatics_Chained_Aromatics" style="display:block;text-align:left;margin-left: 15%">Cracking Side Chained Aromatics Chained Aromatics</label></div>
+<div class="col-lg-6">
+<input type="text" class="form-control" formControlName="Cracking_Side_Chained_Aromatics_Chained_Aromatics" [(ngModel)]="refineryModal['Cracking_Side_Chained_Aromatics_Chained_Aromatics']" />
+<span class="help-block"     *ngIf="(refineryForm.get('Cracking_Side_Chained_Aromatics_Chained_Aromatics').touched || 
+refineryForm.get('Cracking_Side_Chained_Aromatics_Chained_Aromatics').dirty) && 
+refineryForm.get('Cracking_Side_Chained_Aromatics_Chained_Aromatics').errors">
+<span *ngIf="refineryForm.get('Cracking_Side_Chained_Aromatics_Chained_Aromatics').errors.required">
+Please Enter Cracking Side Chained Aromatics Chained Aromatics !
+</span>
+<span *ngIf="refineryForm.get('Cracking_Side_Chained_Aromatics_Chained_Aromatics').errors.gab">
+    Please enter Good, Bad or Average only !
+    </span>
+</span>
+</div>
+</div>
+
+
+
+
+<div class="form-group row" style="margin-top:3%;" 
+[ngClass]="{'has-error': (refineryForm.get('Crude_Oil_ASTM_Distillation').touched || 
+refineryForm.get('Crude_Oil_ASTM_Distillation').dirty) &&
+                              !refineryForm.get('Crude_Oil_ASTM_Distillation').valid }">
+<div class="col-lg-6">
+<label class="control-label" for="Crude_Oil_ASTM_Distillation" style="display:block;text-align:left;margin-left: 15%">Crude Oil ASTM Distillation</label></div>
+<div class="col-lg-6">
+<input type="text" class="form-control" formControlName="Crude_Oil_ASTM_Distillation" [(ngModel)]="refineryModal['Crude_Oil_ASTM_Distillation']" />
+<span class="help-block"     *ngIf="(refineryForm.get('Crude_Oil_ASTM_Distillation').touched || 
+refineryForm.get('Crude_Oil_ASTM_Distillation').dirty) && 
+refineryForm.get('Crude_Oil_ASTM_Distillation').errors">
+<span *ngIf="refineryForm.get('Crude_Oil_ASTM_Distillation').errors.required">
+Please Enter Crude Oil ASTM Distillation !
+</span>
+<span *ngIf="refineryForm.get('Crude_Oil_ASTM_Distillation').errors.gab">
+    Please enter Good, Bad or Average only !
+    </span>
+</span>
+</div>
+</div>
+
+
+
+<div class="form-group row" style="margin-top:3%;" 
+[ngClass]="{'has-error': (refineryForm.get('Crude_Oil_Boiling_Point').touched || 
+refineryForm.get('Crude_Oil_Boiling_Point').dirty) &&
+                              !refineryForm.get('Crude_Oil_Boiling_Point').valid }">
+<div class="col-lg-6">
+<label class="control-label" for="Crude_Oil_Boiling_Point" style="display:block;text-align:left;margin-left: 15%">Crude Oil Boiling Point</label></div>
+<div class="col-lg-6">
+<input type="text" class="form-control" formControlName="Crude_Oil_Boiling_Point" [(ngModel)]="refineryModal['Crude_Oil_Boiling_Point']" />
+<span class="help-block"     *ngIf="(refineryForm.get('Crude_Oil_Boiling_Point').touched || 
+refineryForm.get('Crude_Oil_Boiling_Point').dirty) && 
+refineryForm.get('Crude_Oil_Boiling_Point').errors">
+<span *ngIf="refineryForm.get('Crude_Oil_Boiling_Point').errors.required">
+Please Enter Crude Oil Boiling Point !
+</span>
+<span *ngIf="refineryForm.get('Crude_Oil_Boiling_Point').errors.gab">
+    Please enter Good, Bad or Average only !
+    </span>
+</span>
+</div>
+</div>
+
+
+
+<div class="form-group row" style="margin-top:3%;" 
+[ngClass]="{'has-error': (refineryForm.get('Crude_Oil_Density').touched || 
+refineryForm.get('Crude_Oil_Density').dirty) &&
+                              !refineryForm.get('Crude_Oil_Density').valid }">
+<div class="col-lg-6">
+<label class="control-label" for="Crude_Oil_Density" style="display:block;text-align:left;margin-left: 15%">Crude Oil Density</label></div>
+<div class="col-lg-6">
+<input type="text" class="form-control" formControlName="Crude_Oil_Density" [(ngModel)]="refineryModal['Crude_Oil_Density']" />
+<span class="help-block"     *ngIf="(refineryForm.get('Crude_Oil_Density').touched || 
+refineryForm.get('Crude_Oil_Density').dirty) && 
+refineryForm.get('Crude_Oil_Density').errors">
+<span *ngIf="refineryForm.get('Crude_Oil_Density').errors.required">
+Please Enter Crude Oil Density !
+</span>
+<span *ngIf="refineryForm.get('Crude_Oil_Density').errors.gab">
+    Please enter Good, Bad or Average only !
+    </span>
+</span>
+</div>
+</div>
+
+
+
+<div class="form-group row" style="margin-top:3%;" 
+[ngClass]="{'has-error': (refineryForm.get('Crude_Oil_Viscosity').touched || 
+refineryForm.get('Crude_Oil_Viscosity').dirty) &&
+                              !refineryForm.get('Crude_Oil_Viscosity').valid }">
+<div class="col-lg-6">
+<label class="control-label" for="Crude_Oil_Viscosity" style="display:block;text-align:left;margin-left: 15%">Crude Oil Viscosity</label></div>
+<div class="col-lg-6">
+<input type="text" class="form-control" formControlName="Crude_Oil_Viscosity" [(ngModel)]="refineryModal['Crude_Oil_Viscosity']" />
+<span class="help-block"     *ngIf="(refineryForm.get('Crude_Oil_Viscosity').touched || 
+refineryForm.get('Crude_Oil_Viscosity').dirty) && 
+refineryForm.get('Crude_Oil_Viscosity').errors">
+<span *ngIf="refineryForm.get('Crude_Oil_Viscosity').errors.required">
+Please Enter Crude Oil Viscosity !
+</span>
+<span *ngIf="refineryForm.get('Crude_Oil_Viscosity').errors.gab">
+    Please enter Good, Bad or Average only !
+    </span>
+</span>
+</div>
+</div>
+
+
+
+<div class="form-group row" style="margin-top:3%;" 
+[ngClass]="{'has-error': (refineryForm.get('Furnance_Fuel_Oil').touched || 
+refineryForm.get('Furnance_Fuel_Oil').dirty) &&
+                              !refineryForm.get('Furnance_Fuel_Oil').valid }">
+<div class="col-lg-6">
+<label class="control-label" for="Furnance_Fuel_Oil" style="display:block;text-align:left;margin-left: 15%">Furnance Fuel Oil</label></div>
+<div class="col-lg-6">
+<input type="text" class="form-control" formControlName="Furnance_Fuel_Oil" [(ngModel)]="refineryModal['Furnance_Fuel_Oil']" />
+<span class="help-block"     *ngIf="(refineryForm.get('Furnance_Fuel_Oil').touched || 
+refineryForm.get('Furnance_Fuel_Oil').dirty) && 
+refineryForm.get('Furnance_Fuel_Oil').errors">
+<span *ngIf="refineryForm.get('Furnance_Fuel_Oil').errors.required">
+Please Enter Furnance Fuel Oil !
+</span>
+<span *ngIf="refineryForm.get('Furnance_Fuel_Oil').errors.gab">
+    Please enter Good, Bad or Average only !
+    </span>
+</span>
+</div>
+</div>
+
+
+
+<div class="form-group row" style="margin-top:3%;" 
+[ngClass]="{'has-error': (refineryForm.get('Gas_Processing_Methane').touched || 
+refineryForm.get('Gas_Processing_Methane').dirty) &&
+                              !refineryForm.get('Gas_Processing_Methane').valid }">
+<div class="col-lg-6">
+<label class="control-label" for="Gas_Processing_Methane" style="display:block;text-align:left;margin-left: 15%">Gas Processing Methane</label></div>
+<div class="col-lg-6">
+<input type="text" class="form-control" formControlName="Gas_Processing_Methane" [(ngModel)]="refineryModal['Gas_Processing_Methane']" />
+<span class="help-block"     *ngIf="(refineryForm.get('Gas_Processing_Methane').touched || 
+refineryForm.get('Gas_Processing_Methane').dirty) && 
+refineryForm.get('Gas_Processing_Methane').errors">
+<span *ngIf="refineryForm.get('Gas_Processing_Methane').errors.required">
+Please Enter Gas Processing Methane !
+</span>
+<span *ngIf="refineryForm.get('Gas_Processing_Methane').errors.gab">
+    Please enter Good, Bad or Average only !
+    </span>
+</span>
+</div>
+</div>
+
+
+
+
+<div class="form-group row" style="margin-top:3%;" 
+[ngClass]="{'has-error': (refineryForm.get('Hydrogen_Production_Methane_Reforming').touched || 
+refineryForm.get('Hydrogen_Production_Methane_Reforming').dirty) &&
+                              !refineryForm.get('Hydrogen_Production_Methane_Reforming').valid }">
+<div class="col-lg-6">
+<label class="control-label" for="Hydrogen_Production_Methane_Reforming" style="display:block;text-align:left;margin-left: 15%">Hydrogen Production Methane Reforming</label></div>
+<div class="col-lg-6">
+<input type="text" class="form-control" formControlName="Hydrogen_Production_Methane_Reforming" [(ngModel)]="refineryModal['Hydrogen_Production_Methane_Reforming']" />
+<span class="help-block"     *ngIf="(refineryForm.get('Hydrogen_Production_Methane_Reforming').touched || 
+refineryForm.get('Hydrogen_Production_Methane_Reforming').dirty) && 
+refineryForm.get('Hydrogen_Production_Methane_Reforming').errors">
+<span *ngIf="refineryForm.get('Hydrogen_Production_Methane_Reforming').errors.required">
+Please Enter Hydrogen Production Methane Reforming !
+</span>
+<span *ngIf="refineryForm.get('Hydrogen_Production_Methane_Reforming').errors.gab">
+    Please enter Good, Bad or Average only !
+    </span>
+</span>
+</div>
+</div>
+
+
+
+<div class="form-group row" style="margin-top:3%;" 
+[ngClass]="{'has-error': (refineryForm.get('Hydrogen_Production_Technology_Sulphur').touched || 
+refineryForm.get('Hydrogen_Production_Technology_Sulphur').dirty) &&
+                              !refineryForm.get('Hydrogen_Production_Technology_Sulphur').valid }">
+<div class="col-lg-6">
+<label class="control-label" for="Hydrogen_Production_Technology_Sulphur" style="display:block;text-align:left;margin-left: 15%">Hydrogen Production Technology Sulphur</label></div>
+<div class="col-lg-6">
+<input type="text" class="form-control" formControlName="Hydrogen_Production_Technology_Sulphur" [(ngModel)]="refineryModal['Hydrogen_Production_Technology_Sulphur']" />
+<span class="help-block"     *ngIf="(refineryForm.get('Hydrogen_Production_Technology_Sulphur').touched || 
+refineryForm.get('Hydrogen_Production_Technology_Sulphur').dirty) && 
+refineryForm.get('Hydrogen_Production_Technology_Sulphur').errors">
+<span *ngIf="refineryForm.get('Hydrogen_Production_Technology_Sulphur').errors.required">
+Please Enter Hydrogen Production Technology Sulphur !
+</span>
+<span *ngIf="refineryForm.get('Hydrogen_Production_Technology_Sulphur').errors.gab">
+    Please enter Good, Bad or Average only !
+    </span>
+</span>
+</div>
+</div>
+
+
+<div class="form-group row" style="margin-top:3%;" 
+[ngClass]="{'has-error': (refineryForm.get('Hydrotreating_Organic_Sulphur_Compounds').touched || 
+refineryForm.get('Hydrotreating_Organic_Sulphur_Compounds').dirty) &&
+                              !refineryForm.get('Hydrotreating_Organic_Sulphur_Compounds').valid }">
+<div class="col-lg-6">
+<label class="control-label" for="Hydrotreating_Organic_Sulphur_Compounds" style="display:block;text-align:left;margin-left: 15%">Hydrotreating Organic Sulphur Compounds</label></div>
+<div class="col-lg-6">
+<input type="text" class="form-control" formControlName="Hydrotreating_Organic_Sulphur_Compounds" [(ngModel)]="refineryModal['Hydrotreating_Organic_Sulphur_Compounds']" />
+<span class="help-block"     *ngIf="(refineryForm.get('Hydrotreating_Organic_Sulphur_Compounds').touched || 
+refineryForm.get('Hydrotreating_Organic_Sulphur_Compounds').dirty) && 
+refineryForm.get('Hydrotreating_Organic_Sulphur_Compounds').errors">
+<span *ngIf="refineryForm.get('Hydrotreating_Organic_Sulphur_Compounds').errors.required">
+Please Enter Hydrotreating Organic Sulphur Compounds !
+</span>
+<span *ngIf="refineryForm.get('Hydrotreating_Organic_Sulphur_Compounds').errors.gab">
+    Please enter Good, Bad or Average only !
+    </span>
+</span>
+</div>
+</div>
+
+<div class="form-group row" style="margin-top:3%;" 
+[ngClass]="{'has-error': (refineryForm.get('Olefin_Polymerization_Process_Technology_C3_C4_Olefin_Feed').touched || 
+refineryForm.get('Olefin_Polymerization_Process_Technology_C3_C4_Olefin_Feed').dirty) &&
+                              !refineryForm.get('Olefin_Polymerization_Process_Technology_C3_C4_Olefin_Feed').valid }">
+<div class="col-lg-6">
+<label class="control-label" for="Olefin_Polymerization_Process_Technology_C3_C4_Olefin_Feed" style="display:block;text-align:left;margin-left: 15%">Olefin Polymerization Process Technology C3 C4 Olefin Feed</label></div>
+<div class="col-lg-6">
+<input type="text" class="form-control" formControlName="Olefin_Polymerization_Process_Technology_C3_C4_Olefin_Feed" [(ngModel)]="refineryModal['Olefin_Polymerization_Process_Technology_C3_C4_Olefin_Feed']" />
+<span class="help-block"     *ngIf="(refineryForm.get('Olefin_Polymerization_Process_Technology_C3_C4_Olefin_Feed').touched || 
+refineryForm.get('Olefin_Polymerization_Process_Technology_C3_C4_Olefin_Feed').dirty) && 
+refineryForm.get('Olefin_Polymerization_Process_Technology_C3_C4_Olefin_Feed').errors">
+<span *ngIf="refineryForm.get('Olefin_Polymerization_Process_Technology_C3_C4_Olefin_Feed').errors.required">
+Please Enter Olefin Polymerization Process Technology C3 C4 Olefin Feed !
+</span>
+<span *ngIf="refineryForm.get('Olefin_Polymerization_Process_Technology_C3_C4_Olefin_Feed').errors.gab">
+    Please enter Good, Bad or Average only !
+    </span>
+</span>
+</div>
+</div>
+
+<div class="form-group row" style="margin-top:3%;" 
+[ngClass]="{'has-error': (refineryForm.get('Petroleum_Refinery_Hydrocarbon_Balances').touched || 
+refineryForm.get('Petroleum_Refinery_Hydrocarbon_Balances').dirty) &&
+                              !refineryForm.get('Petroleum_Refinery_Hydrocarbon_Balances').valid }">
+<div class="col-lg-6">
+<label class="control-label" for="Petroleum_Refinery_Hydrocarbon_Balances" style="display:block;text-align:left;margin-left: 15%">Petroleum Refinery Hydrocarbon Balances</label></div>
+<div class="col-lg-6">
+<input type="text" class="form-control" formControlName="Petroleum_Refinery_Hydrocarbon_Balances" [(ngModel)]="refineryModal['Petroleum_Refinery_Hydrocarbon_Balances']" />
+<span class="help-block"     *ngIf="(refineryForm.get('Petroleum_Refinery_Hydrocarbon_Balances').touched || 
+refineryForm.get('Petroleum_Refinery_Hydrocarbon_Balances').dirty) && 
+refineryForm.get('Petroleum_Refinery_Hydrocarbon_Balances').errors">
+<span *ngIf="refineryForm.get('Petroleum_Refinery_Hydrocarbon_Balances').errors.required">
+Please Enter Petroleum Refinery Hydrocarbon Balances !
+</span>
+<span *ngIf="refineryForm.get('Petroleum_Refinery_Hydrocarbon_Balances').errors.gab">
+    Please enter Good, Bad or Average only !
+    </span>
+</span>
+</div>
+</div>
+
+<div class="form-group row" style="margin-top:3%;" 
+[ngClass]="{'has-error': (refineryForm.get('Reaction_Mechanism_Pressure').touched || 
+refineryForm.get('Reaction_Mechanism_Pressure').dirty) &&
+                              !refineryForm.get('Reaction_Mechanism_Pressure').valid }">
+<div class="col-lg-6">
+<label class="control-label" for="Reaction_Mechanism_Pressure" style="display:block;text-align:left;margin-left: 15%">Reaction Mechanism Pressure</label></div>
+<div class="col-lg-6">
+<input type="text" class="form-control" formControlName="Reaction_Mechanism_Pressure" [(ngModel)]="refineryModal['Reaction_Mechanism_Pressure']" />
+<span class="help-block"     *ngIf="(refineryForm.get('Reaction_Mechanism_Pressure').touched || 
+refineryForm.get('Reaction_Mechanism_Pressure').dirty) && 
+refineryForm.get('Reaction_Mechanism_Pressure').errors">
+<span *ngIf="refineryForm.get('Reaction_Mechanism_Pressure').errors.required">
+Please Enter Reaction Mechanism Pressure !
+</span>
+<span *ngIf="refineryForm.get('Reaction_Mechanism_Pressure').errors.gab">
+    Please enter Good, Bad or Average only !
+    </span>
+</span>
+</div>
+</div>
+
+<div class="form-group row" style="margin-top:3%;" 
+[ngClass]="{'has-error': (refineryForm.get('Crude_Oil_API_Gravity').touched || 
+refineryForm.get('Crude_Oil_API_Gravity').dirty) &&
+                              !refineryForm.get('Crude_Oil_API_Gravity').valid }">
+<div class="col-lg-6">
+<label class="control-label" for="Crude_Oil_API_Gravity" style="display:block;text-align:left;margin-left: 15%">Crude Oil API Gravity</label></div>
+<div class="col-lg-6">
+<input type="text" class="form-control" formControlName="Crude_Oil_API_Gravity" [(ngModel)]="refineryModal['Crude_Oil_API_Gravity']" />
+<span class="help-block"     *ngIf="(refineryForm.get('Crude_Oil_API_Gravity').touched || 
+refineryForm.get('Crude_Oil_API_Gravity').dirty) && 
+refineryForm.get('Crude_Oil_API_Gravity').errors">
+<span *ngIf="refineryForm.get('Crude_Oil_API_Gravity').errors.required">
+Please Enter Crude Oil API Gravity !
+</span>
+<span *ngIf="refineryForm.get('Crude_Oil_API_Gravity').errors.gab">
+    Please enter Good, Bad or Average only !
+    </span>
+</span>
+</div>
+</div>
+
+       
+<span layout="row"><hr flex/></span>       
+  
           <div class="form-group row" style="margin-top:5%;margin-bottom:5%">
-          <div class="col-lg-6" style="padding-left:22%;">
-                  <button class="btn btn-primary btn-sm"  type="button"  (click)="UpdateRefinery(refineryModal)">
+              <div class="col-lg-6" style="padding-left:32%;">
+                  <button class="btn btn-primary btn-lg"  type="submit"  [disabled]="!refineryForm.valid">
                    Update</button>
                     </div>
-                    
+          <div class="col-lg-6" style="padding-right:22%;">
+                  <button class="btn btn-primary btn-lg"  type="button" mat-button [mat-dialog-close]="true">
+                   Close</button>
                     </div>
                     
+                    </div>
+                    </fieldset></form>
                  </div>           
 
 
+                 <div *ngIf="!displayUpdateFormData">
+
+   
+                        <div class="form-group row" style="margin-top:5%;margin-bottom:5%">
+                            <div class="col-lg-12" style="padding-left:45%;">
+                                    <button class="btn btn-primary btn-lg"  type="button" mat-button [mat-dialog-close]="true">
+                                     Close</button>
+                                      </div>
+                                      
+                                      </div>
+                 </div>
 </content>
             
             

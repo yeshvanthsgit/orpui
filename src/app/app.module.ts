@@ -3,6 +3,7 @@ import { NgModule, keyframes } from '@angular/core';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { HttpModule, Http, XHRBackend, RequestOptions } from '@angular/http';
 import {FormsModule} from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -49,6 +50,7 @@ import {
     BrowserModule,
     HttpModule,
     FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     CdkTableModule,
     MatTableModule,
