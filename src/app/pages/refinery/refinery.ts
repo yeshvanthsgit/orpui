@@ -118,6 +118,8 @@ export class Refinery implements OnInit {
                 } else if (refinery.status.toUpperCase() == this.constants.PERFORMANCE_BAD) {
                   this.badCount++;
                 }
+              }else{
+                refinery.status="N/A"
               }
 
               if(refinery.status==="?"){
@@ -166,6 +168,8 @@ export class Refinery implements OnInit {
                 } else if (refinery.status.toUpperCase() == this.constants.PERFORMANCE_BAD) {
                   this.badCount++;
                 }
+              }else{
+                refinery.status="N/A"
               }
 
               if(refinery.status==="?"){
@@ -217,6 +221,8 @@ export class Refinery implements OnInit {
               } else if (refinery.status.toUpperCase() == this.constants.PERFORMANCE_BAD) {
                 this.badCount++;
               }
+            }else{
+              refinery.status="N/A"
             }
 
             if(refinery.status==="?"){
@@ -305,6 +311,8 @@ public SearchRefinery(refineryname:string){
   });
 
 }
+
+
 
 public AddRefinery(){
   let dialogRef = this.dialog.open(AddRefinery, {
