@@ -73,6 +73,9 @@ export class ViewAttributes implements OnInit {
               attributes.AttributeName = key.toString().split('_').join(' ');
               attributes.AttributeValue = JSON.stringify(value);
 
+              let str:string= JSON.stringify(value);
+              attributes.AttributeValue = str.replace(/['"]+/g, ''); 
+
               // console.log(attributes.AttributeValue);
               //attributes.AttributeNo= 1;
               this.seqNumArr[i]= i++;
@@ -122,6 +125,9 @@ export class ViewAttributes implements OnInit {
               //alert(JSON.stringify(value));
               attributes.AttributeName = key.toString().split('_').join(' ');
               attributes.AttributeValue = JSON.stringify(value);
+
+              let str:string= JSON.stringify(value);
+              attributes.AttributeValue = str.replace(/['"]+/g, ''); 
               
 
               this.AttributeDetailArr.push(attributes);
@@ -168,6 +174,8 @@ export class ViewAttributes implements OnInit {
               //alert(JSON.stringify(value));
               attributes.AttributeName = key.toString().split('_').join(' ');
               attributes.AttributeValue = JSON.stringify(value);
+              let str:string= JSON.stringify(value);
+              attributes.AttributeValue = str.replace(/['"]+/g, ''); 
 
               this.AttributeDetailArr.push(attributes);
 
