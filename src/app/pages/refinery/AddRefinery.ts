@@ -1,6 +1,8 @@
 import { OnInit, Component, Inject } from '@angular/core';
 import { Service } from '../../../providers/index';
 import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn} from '@angular/forms';
+import { SweetAlertService } from 'angular-sweetalert-service';
+import { MatDialogRef } from '@angular/material';
 
 
 
@@ -26,7 +28,8 @@ export class AddRefinery implements OnInit {
   displayAddFormData : boolean;
  
 
-  constructor(private fb: FormBuilder,  public serv: Service) {
+  constructor(private fb: FormBuilder,  public serv: Service, private alertService: SweetAlertService,
+     private dialogRef: MatDialogRef<AddRefinery>) {
 
   }
 
@@ -86,22 +89,29 @@ this.refineryForm = this.fb.group({
 
       this.serv.saveRefineryDetails(refineryModal).subscribe((resp) => {
       
-        if(resp.json().data == "success"){
-          this.message = "Record has been inserted successfully !";
-          this.refineryModal={};
-          this.displayAddFormData = false;
+        if (resp.json().data == "success") {
+          this.alertService.alert({
+            type: "success",
+            text: "Record has been added successfully!",
+          }).then(result => {
+            this.dialogRef.close();
+          });
         }
 
-      else  if(resp.json().data == "duplicate"){
-          this.message = "Record already exists. Please change the Refinery Name and try again.";
-          this.displayAddFormData = true;
+        else if (resp.json().data == "duplicate") {
+          this.alertService.error({
+            text: "Record already exists. Please change the Refinery Name and try again!",
+          });
         }
 
       }, (err: Response) => {
         let msg = err.json()['message'];
         console.log(msg);
-        this.displayAddFormData = true;
-        this.message = "Error while inserting the record. Please check the logs and try again.";
+        this.alertService.error({
+          text: "Error while inserting the record. Please check the logs and try again.",
+        }).then(result => {
+          this.dialogRef.close();
+        });
       });
     
     } 

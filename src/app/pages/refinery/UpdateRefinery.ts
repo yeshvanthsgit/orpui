@@ -2,6 +2,8 @@ import { OnInit, Component, Inject } from '@angular/core';
 import { Service } from '../../../providers/index';
 import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn} from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material';
+import { SweetAlertService } from 'angular-sweetalert-service';
+import { MatDialogRef } from '@angular/material';
 
 
 function goodBadAverage(c: AbstractControl): {[key: string]: boolean} | null {
@@ -25,7 +27,8 @@ export class UpdateRefinery implements OnInit {
   refineryForm : FormGroup;
   displayUpdateFormData : boolean;
 
-  constructor(private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, public serv: Service) {
+  constructor(private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, public serv: Service,
+              private dialogRef: MatDialogRef<UpdateRefinery>,private alertService: SweetAlertService) {
 
 
   }
@@ -106,13 +109,20 @@ export class UpdateRefinery implements OnInit {
 
 
       this.serv.updateRefineryDetails(refineryModal).subscribe((resp) => {
-        this.displayUpdateFormData = false;
-        this.message = "Record has been updated successfully !";
+        this.alertService.alert({
+          type: "success",
+          text: "Record has been added successfully!",
+        }).then(result => {
+          this.dialogRef.close();
+        });
       
       }, (err: Response) => {
         let msg = err.json()['message'];
-        this.displayUpdateFormData = true;
-        this.message = "Error while updating the record. Please check the logs and try again.";
+        this.alertService.error({
+          text: "Error while inserting the record. Please check the logs and try again.",
+        }).then(result => {
+          this.dialogRef.close();
+        });
       });
     
     } 
