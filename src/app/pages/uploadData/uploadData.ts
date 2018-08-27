@@ -30,11 +30,22 @@ export class UploadData implements OnInit {
 
     selectTestFile(event) {
         this.selectedTestFile = event.target.files;
+        let urlExtnsn:String = event.target.files.item(0).type;
+        if(urlExtnsn != "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"){
+            document.getElementById('errorMessage').innerHTML = "Incorrect file format.Acceptable format is .xlsx. Please try again!";
+            this.selectedTestFile = undefined;
+        }
     }
     selectTrainFile(event) {
         this.selectedTrainFile = event.target.files;
+        let urlExtnsn:String = event.target.files.item(0).type;
+        if(urlExtnsn != "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"){
+            document.getElementById('errorMessage').innerHTML = "Incorrect file format.Acceptable format is .xlsx. Please try again!";
+            this.selectedTrainFile = undefined;
+        }
     }
     upload() {
+        document.getElementById('errorMessage').innerHTML = "";
         this.currentTestFileUpload = this.selectedTestFile.item(0);
         this.currentTrainFileUpload = this.selectedTrainFile.item(0);
         if (this.currentTestFileUpload.type != null &&
