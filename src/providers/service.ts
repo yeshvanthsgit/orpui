@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, RequestOptions,Headers } from '@angular/http';
 import { Api } from './api';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
@@ -16,15 +16,21 @@ import { SweetAlertService } from 'angular-sweetalert-service';
 
 @Injectable()
 export class Service {
+
+  public headers:Headers= new Headers({'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache' });
+public options: RequestOptions = new RequestOptions({headers:this.headers}); 
   
 
   constructor(public http: Http, public api: Api, private alertService: SweetAlertService ) {
   }
 
+ 
+
   getRegionDetails(){
 
     let url="/refinery/fetchLimiteFields/TestDB/Region";
-    let seq = this.api.get(url, null, null).share();
+    let seq = this.api.get(url, null, this. options).share();
 
     seq
       .timeoutWith(3000, Observable.throw(new Error('Request timedout!!')))
@@ -42,7 +48,7 @@ export class Service {
   getSiteDetails(){
     
         let url="/refinery/fetchLimiteFields/TestDB/Site";
-        let seq = this.api.get(url, null, null).share();
+        let seq = this.api.get(url, null, this. options).share();
     
         seq
           .timeoutWith(3000, Observable.throw(new Error('Request timedout!!')))
@@ -59,7 +65,7 @@ export class Service {
       getRegionSpecificSiteDetails(regionName: string){
     
         let url="/refinery/fetchSiteDataAttachedToRegion/"+regionName;
-        let seq = this.api.get(url, null, null).share();
+        let seq = this.api.get(url, null, this. options).share();
     
         seq
           .timeoutWith(3000, Observable.throw(new Error('Request timedout!!')))
@@ -77,7 +83,7 @@ export class Service {
 getRefineryDetails(){
         
             let url="/refinery/fetchData/TestDB/Refinary";
-            let seq = this.api.get(url, null, null).share();
+            let seq = this.api.get(url, null, this. options).share();
         
             seq
               .timeoutWith(30000, Observable.throw(new Error('Request timedout!!')))
@@ -94,7 +100,7 @@ getRefineryDetails(){
           getRegionSpecificRefineryDetails(regionName: string){
         
             let url="/refinery/fetchRefinaryDataAttachedToRegion/"+regionName;
-            let seq = this.api.get(url, null, null).share();
+            let seq = this.api.get(url, null, this. options).share();
         
             seq
               .timeoutWith(3000, Observable.throw(new Error('Request timedout!!')))
@@ -113,7 +119,7 @@ getRefineryDetails(){
           getSiteSpecificRefineryDetails(siteName: string){
         
             let url="/refinery/fetchRefinaryDataAttachedToSite/"+siteName;
-            let seq = this.api.get(url, null, null).share();
+            let seq = this.api.get(url, null, this. options).share();
         
             seq
               .timeoutWith(3000, Observable.throw(new Error('Request timedout!!')))
@@ -131,7 +137,7 @@ getRefineryDetails(){
   getSpecificRegionDetail(regionName: string) {
 
     let url = "/refinery/fetchAttributes/TestDB/Region/" + regionName;
-    let seq = this.api.get(url, null, null).share();
+    let seq = this.api.get(url, null, this. options).share();
 
     seq
       .timeoutWith(3000, Observable.throw(new Error('Request timedout!!')))
@@ -147,7 +153,7 @@ getRefineryDetails(){
   getSpecificSiteDetail(siteName: string) {
 
     let url = "/refinery/fetchAttributes/TestDB/Site/" + siteName;
-    let seq = this.api.get(url, null, null).share();
+    let seq = this.api.get(url, null, this. options).share();
 
     seq
       .timeoutWith(3000, Observable.throw(new Error('Request timedout!!')))
@@ -163,7 +169,7 @@ getRefineryDetails(){
   getSpecificRefineryDetail(refineryName: string) {
 
     let url = "/refinery/fetchAttributes/TestDB/Refinary/" + refineryName;
-    let seq = this.api.get(url, null, null).share();
+    let seq = this.api.get(url, null, this. options).share();
 
     seq
       .timeoutWith(3000, Observable.throw(new Error('Request timedout!!')))
@@ -181,7 +187,7 @@ getRefineryDetails(){
     
         let url = "/refinery/deleteRecord/TestDB/Refinary/Refinery_Name/" + refineryName;
         console.log(url);
-        let seq = this.api.get(url, null, null).share();
+        let seq = this.api.get(url, null, this. options).share();
     
         seq
           .timeoutWith(3000, Observable.throw(new Error('Request timedout!!')))
@@ -200,7 +206,11 @@ getRefineryDetails(){
         
             let url = "/refinery/updateRecord/TestDB/Refinary";
             console.log(url);
-            let seq = this.api.post(url, refineryModal, null).share();
+          /*  let headers = new Headers({'Cache-Control': 'no-cache',
+                    'Pragma': 'no-cache' });
+            let options = new RequestOptions({headers:headers}); */
+            
+            let seq = this.api.post(url, refineryModal,this. options ).share();
         
             seq
               .timeoutWith(3000, Observable.throw(new Error('Request timedout!!')))
@@ -219,7 +229,7 @@ getRefineryDetails(){
             
                 let url = "/refinery/saveRefinary/TestDB/Refinary";
                 console.log(url);
-                let seq = this.api.post(url, refineryModal, null).share();
+                let seq = this.api.post(url, refineryModal, this. options).share();
             
                 seq
                   .timeoutWith(3000, Observable.throw(new Error('Request timedout!!')))
@@ -240,7 +250,7 @@ getRefineryDetails(){
     formdata.append('file2', file2);
     const URL = 'refinery/saveData';
 
-    let seq = this.api.post(URL, formdata, null).share();
+    let seq = this.api.post(URL, formdata, this. options).share();
     seq
       .timeoutWith(20000, Observable.throw(new Error('Request timedout!!')))
       .map(res => res)
@@ -258,7 +268,7 @@ getRefineryDetails(){
 
     const URL = 'runModal';
 
-    let seq = this.api.postModal(URL, null, null).share();
+    let seq = this.api.postModal(URL, null, this. options).share();
     seq
       .timeoutWith(20000, Observable.throw(new Error('Request timedout!!')))
       .map(res => res)
