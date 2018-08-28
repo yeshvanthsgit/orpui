@@ -70,6 +70,10 @@ export class ViewAttributes implements OnInit {
               let attributes = new AttrbuiteBO();
               //alert(key)
               // alert(JSON.stringify(value));
+              if(key.toString().trim()=== "_id"){
+                continue;
+              }
+
               attributes.AttributeName = key.toString().split('_').join(' ');
               attributes.AttributeValue = JSON.stringify(value);
 
@@ -123,6 +127,9 @@ export class ViewAttributes implements OnInit {
               let attributes = new AttrbuiteBO();
               //alert(key)
               //alert(JSON.stringify(value));
+              if(key.toString().trim()=== "_id"){
+                continue;
+              }
               attributes.AttributeName = key.toString().split('_').join(' ');
               attributes.AttributeValue = JSON.stringify(value);
 
@@ -172,6 +179,9 @@ export class ViewAttributes implements OnInit {
               let attributes = new AttrbuiteBO();
               //alert(key)
               //alert(JSON.stringify(value));
+              if(key.toString().trim()=== "_id"){
+                continue;
+              }
               attributes.AttributeName = key.toString().split('_').join(' ');
               attributes.AttributeValue = JSON.stringify(value);
               let str:string= JSON.stringify(value);
