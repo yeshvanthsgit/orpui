@@ -111,7 +111,7 @@ export class UpdateRefinery implements OnInit {
       this.serv.updateRefineryDetails(refineryModal).subscribe((resp) => {
         this.alertService.alert({
           type: "success",
-          text: "Record has been added successfully!",
+          text: "Record has been updated successfully!",
         }).then(result => {
           this.dialogRef.close();
         });

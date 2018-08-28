@@ -26,16 +26,16 @@ export class RunModal implements OnInit {
 
         this.runModalService.runModalForUploadedData().subscribe(event => {
             if (event != undefined && event.status == 200) {
-                console.log('Modal has run successfully!');
+                console.log('Model has run successfully!');
                 let url:any='/region/';
                 this.dialogRef.close();
-                this.alertService.success({title:"Modal has run successfully!"}).then(this.router.navigate([url]));
+                this.alertService.success({title:"Model has run successfully!"}).then(this.router.navigate([url]));
                 
             } else{
-                console.log('Modal has failed to run!');
+                console.log('Model has failed to run!');
                 let url:any='/region';
                 this.dialogRef.close();
-                this.alertService.error({title:"Modal has failed to run!"}).then(this.router.navigate([url]));
+                this.alertService.error({title:"Model has failed to run!"}).then(this.router.navigate([url]));
             }
 
         },error =>{
