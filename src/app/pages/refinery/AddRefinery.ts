@@ -24,6 +24,8 @@ export class AddRefinery implements OnInit {
   title = 'Add Refinery Data';
   message = '';
   refineryModal : any;
+  siteList : any;
+
   refineryForm : FormGroup;
   displayAddFormData : boolean;
  
@@ -42,6 +44,18 @@ export class AddRefinery implements OnInit {
 this.refineryModal=data;
 this.message = "";
 this.displayAddFormData = true;
+
+
+this.serv.getSiteDetails().subscribe((resp) => {
+  if (resp != null && resp.json() != null) {
+    this.siteList= resp.json();
+    console.log(this.siteList)
+  } 
+}, (err: Response) => {
+  let msg = err.json()['message'];
+  console.log(msg);
+
+})
 
 this.refineryForm = this.fb.group({
   Refinery_Name: ['', [Validators.required]],
@@ -86,7 +100,7 @@ this.refineryForm = this.fb.group({
 			}
 		}
 
-
+console.log(refineryModal)
       this.serv.saveRefineryDetails(refineryModal).subscribe((resp) => {
       
         if (resp.json().data == "success") {
@@ -101,6 +115,12 @@ this.refineryForm = this.fb.group({
         else if (resp.json().data == "duplicate") {
           this.alertService.error({
             text: "Record already exists. Please change the Refinery Name and try again!",
+          });
+        }
+
+        else if (resp.json().data == "Site Not Found") {
+          this.alertService.error({
+            text: "Site Name does not exist. Please change the Site Name and try again!",
           });
         }
 

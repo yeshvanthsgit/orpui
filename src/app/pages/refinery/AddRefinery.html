@@ -46,12 +46,15 @@ Please Enter Refinery Name !
            <div class="col-lg-6">
           <label class="control-label" for="Site_Name" style="display:block;text-align:left;margin-left: 15%">Site Name</label></div>
           <div class="col-lg-6">
-            <input type="text" class="form-control" formControlName="Site_Name" [(ngModel)]="refineryModal['Site_Name']" />
-            <span class="help-block"     *ngIf="(refineryForm.get('Site_Name').touched || 
+
+            <select class="form-control" formControlName="Site_Name" [(ngModel)]="refineryModal['Site_Name']">
+                    <option *ngFor="let list of siteList" [ngValue]="list.Site_Name">{{list.Site_Name}}</option>
+                </select>
+                <span class="help-block"     *ngIf="(refineryForm.get('Site_Name').touched || 
             refineryForm.get('Site_Name').dirty) && 
             refineryForm.get('Site_Name').errors">
 <span *ngIf="refineryForm.get('Site_Name').errors.required">
-Please Enter Site Name !
+Please Select Site Name !
 </span>
 </span>
           </div>

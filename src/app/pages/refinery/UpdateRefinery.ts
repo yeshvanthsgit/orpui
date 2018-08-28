@@ -23,6 +23,7 @@ export class UpdateRefinery implements OnInit {
   title = 'Update Refinery Data';
   typeOfAttribute: string;
   refineryModal : any;
+  siteList : any;
   message = '';
   refineryForm : FormGroup;
   displayUpdateFormData : boolean;
@@ -42,6 +43,20 @@ export class UpdateRefinery implements OnInit {
     this.displayUpdateFormData = true;
     this.message = "";
     this.refineryModal={};
+
+    this.serv.getSiteDetails().subscribe((resp) => {
+      if (resp != null && resp.json() != null) {
+        this.siteList= resp.json();
+        console.log(this.siteList)
+      } 
+    }, (err: Response) => {
+      let msg = err.json()['message'];
+      console.log(msg);
+    
+    })
+
+
+
     this.refineryForm = this.fb.group({
       Refinery_Name: ['', [Validators.required]],
       Site_Name: ['', [Validators.required]],
