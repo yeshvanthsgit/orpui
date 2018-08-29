@@ -85,7 +85,8 @@ if(paramVal!=null ){
         
 
         reg.name=regDetail.Region_Name;
-        reg.status=regDetail.Overall_Region_Performance;
+        //reg.status=regDetail.Overall_Region_Performance;
+        reg.status=regDetail.Calculated_Region_Performance ;
 
         if(reg.status){
   
@@ -135,7 +136,8 @@ this.serv.getRegionDetails().subscribe((resp) => {
       
 console.log('region name'+element);
 reg.name=regDetail.Region_Name;
-reg.status=regDetail.Overall_Region_Performance;
+//reg.status=regDetail.Overall_Region_Performance;
+reg.status=regDetail.Calculated_Region_Performance;
 
 if(reg.status){
   

@@ -82,7 +82,8 @@ export class Site implements OnInit {
         element.forEach(siteDetail => {
           let site = new SiteBO();
           site.name = siteDetail.Site_Name;
-          site.status = siteDetail.Overall_Site_Performance;
+         // site.status = siteDetail.Overall_Site_Performance;
+          site.status=siteDetail.Calculated_Site_Performance;
 
           if(site.status){
             
@@ -128,7 +129,8 @@ export class Site implements OnInit {
           element.forEach(siteDetail => {
             let site = new SiteBO();
             site.name = siteDetail.Site_Name;
-            site.status = siteDetail.Overall_Site_Performance;
+            //site.status = siteDetail.Overall_Site_Performance;
+            site.status=siteDetail.Calculated_Site_Performance;
             if(site.status){
               
                      if( site.status.toUpperCase()==this.constants.PERFORMANCE_GOOD){
