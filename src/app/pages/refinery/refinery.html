@@ -16,7 +16,7 @@
 
               <div class="example-header" center style="margin-left: 10px;">
                   <mat-form-field>
-                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Refinery">
+                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Refinery/Status">
 
                   </mat-form-field>
                 </div>
@@ -28,7 +28,7 @@
             
                 <!-- Position Column -->
                 <ng-container matColumnDef="name">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 15px;font-weight: bold;color: #000"> Name </mat-header-cell>
+                  <mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 15px;font-weight: bold;color: #000"> Refinery Name </mat-header-cell>
                   <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
                 </ng-container>
             
