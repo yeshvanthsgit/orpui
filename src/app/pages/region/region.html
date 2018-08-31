@@ -16,7 +16,7 @@
 
               <div class="example-header" center style="margin-left: 10px;">
                   <mat-form-field>
-                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Region">
+                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Region/Status">
                   </mat-form-field>
                 </div>
           </div>
@@ -53,9 +53,9 @@
                  </ng-container>
 
                  <ng-container matColumnDef="viewRefinery">
-                    <mat-header-cell *matHeaderCellDef style="font-size: 15px;font-weight: bold;color: #000;">Refinery </mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef style="font-size: 15px;font-weight: bold;color: #000;">Refineries </mat-header-cell>
                     <mat-cell *matCellDef="let element"> 
-                      <button (click)="viewRefineries(element.name)" class="btn btn-primary btn-md" block >View Refinery</button> </mat-cell>
+                      <button (click)="viewRefineries(element.name)" class="btn btn-primary btn-md" block >View Refineries</button> </mat-cell>
                  </ng-container>
 
             
