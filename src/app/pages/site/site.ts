@@ -94,7 +94,9 @@ export class Site implements OnInit {
                    } else if( site.status.toUpperCase()==this.constants.PERFORMANCE_BAD){
                     this.badCount++;
                    }
-                  } 
+                  }else{
+                    site.status="N/A"
+                  }
 
                   if(site.status==="?"){
                     site.status="N/A"
@@ -140,7 +142,9 @@ export class Site implements OnInit {
                      } else if( site.status.toUpperCase()==this.constants.PERFORMANCE_BAD){
                       this.badCount++;
                      }
-                    } 
+                    }else{
+                      site.status="N/A"
+                    }
 
                     if(site.status==="?"){
                       site.status="N/A"

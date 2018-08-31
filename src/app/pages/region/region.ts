@@ -97,7 +97,9 @@ if(paramVal!=null ){
          } else if( reg.status.toUpperCase()==this.constants.PERFORMANCE_BAD){
           this.badCount++;
          }
-        } 
+        }else{
+          reg.status="N/A"
+        }
 
         if(reg.status==="?"){
           reg.status="N/A"
@@ -148,7 +150,9 @@ if(reg.status){
          } else if( reg.status.toUpperCase()==this.constants.PERFORMANCE_BAD){
           this.badCount++;
          }
-        } 
+        }else{
+          reg.status="N/A"
+        }
 
         if(reg.status==="?"){
           reg.status="N/A"
