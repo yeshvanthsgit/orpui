@@ -282,5 +282,26 @@ getRefineryDetails(){
     return seq;
   }
 
+
+  getAttributes(type: string) {
+
+    let url: any;
+    let seq: any;
+    if(type == "refinery"){
+      url = "/refinery/getKeys/TestDB/Refinary";
+      seq = this.api.get(url, null, this. options).share();
+    }
+
+    seq
+      .timeoutWith(3000, Observable.throw(new Error('Request timedout!!')))
+      .map(res => res.json())
+      .subscribe(res => {
+      }, err => {
+        console.error('ERROR', err);
+      });
+
+    return seq;
+  }
+
   
 }
