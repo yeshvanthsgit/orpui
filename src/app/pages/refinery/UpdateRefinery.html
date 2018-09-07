@@ -37,6 +37,9 @@ Please Enter Refinery Name !
 </span>
               </div>
             </div>
+            <span layout="row">
+                <hr flex/>
+            </span>
 
 
             <div class="form-group row" style="margin-top:3%;" 
@@ -60,11 +63,40 @@ Please Select Site Name !
 </span>
           </div>
         </div>
+        <span layout="row">
+            <hr flex/>
+        </span>
 
+        <div  *ngFor="let key of keys();">
 
+            <div class="form-group row" style="margin-top:3%;" [ngClass]="{'has-error': (refineryForm.get(key).touched || 
+        refineryForm.get(key).dirty) &&
+                                      !refineryForm.get(key).valid }">
+                <div class="col-lg-6">
+                    <label class="control-label" for="{{key}}" style="display:block;text-align:left;margin-left: 15%">{{attributes[key]}}</label>
+                </div>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" formControlName="{{key}}" [(ngModel)]="refineryModal[key]" />
+                    <span class="help-block" *ngIf="(refineryForm.get(key).touched || 
+        refineryForm.get(key).dirty) && 
+        refineryForm.get(key).errors">
+                        <span *ngIf="refineryForm.get(key).errors.required">
+                            Please Enter {{attributes[key]}} Name !
+                        </span>
+                        <span *ngIf="!refineryForm.get(key).errors.required && refineryForm.get(key).errors.gab">
+                            Please enter Good, Bad or Average only !
+                        </span>
 
+                    </span>
+                </div>
+            </div>
 
-        <div class="form-group row" style="margin-top:3%;" 
+            <span layout="row">
+                <hr flex/>
+            </span>
+        </div>
+
+  <!--      <div class="form-group row" style="margin-top:3%;" 
         [ngClass]="{'has-error': (refineryForm.get('Thermal_Cracking_Pressure').touched || 
         refineryForm.get('Thermal_Cracking_Pressure').dirty) &&
                                       !refineryForm.get('Thermal_Cracking_Pressure').valid }">
@@ -538,7 +570,7 @@ Please Enter Crude Oil API Gravity !
 </span>
 </div>
 </div>
-
+-->
        
 <span layout="row"><hr flex/></span>       
   
