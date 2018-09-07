@@ -1,6 +1,6 @@
 import { OnInit, Component, Inject } from '@angular/core';
 import { Service } from '../../../providers/index';
-import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn} from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn,FormControl} from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material';
 import { SweetAlertService } from 'angular-sweetalert-service';
 import { MatDialogRef } from '@angular/material';
@@ -28,10 +28,16 @@ export class UpdateRefinery implements OnInit {
   refineryForm : FormGroup;
   displayUpdateFormData : boolean;
 
+  attributes: Object=new Object();
+
   constructor(private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, public serv: Service,
               private dialogRef: MatDialogRef<UpdateRefinery>,private alertService: SweetAlertService) {
 
 
+  }
+
+  keys() : Array<string> {
+    return Object.keys(this.attributes);
   }
 
   applyFilter(filterValue: string) {
@@ -40,7 +46,7 @@ export class UpdateRefinery implements OnInit {
 
   ngOnInit() {
     this.typeOfAttribute= this.data.name;
-    this.displayUpdateFormData = true;
+    //this.displayUpdateFormData = true;
     this.message = "";
     this.refineryModal={};
 
@@ -55,9 +61,40 @@ export class UpdateRefinery implements OnInit {
     
     })
 
+    this.serv.getAttributes('refinery').subscribe((resp) => {
+      if (resp != null && resp.json() != null) {
+        let attributeList:string = JSON.stringify(resp.json());
+        let attrArr: string[] = attributeList.substring(1, attributeList.length - 1).replace(/\"/gi, "").split(",");
+        for (let i=0; i< attrArr.length ; i++) {
+          if (attrArr[i] != "_id" && attrArr[i] != "Refinery_Name" && attrArr[i] != "Site_Name") {
+            this.attributes[attrArr[i]]= attrArr[i].replace(/\_/gi, " ");
+          }
+        }
+        
+        const jobGroup: FormGroup = new FormGroup({});
 
+        let refNamecontrol: FormControl = new FormControl('Refinery_Name', [Validators.required]);
+        let siteNamecontrol: FormControl = new FormControl('Site_Name', [Validators.required]);
+        jobGroup.addControl('Refinery_Name', refNamecontrol);
+        jobGroup.addControl('Site_Name', siteNamecontrol);
 
-    this.refineryForm = this.fb.group({
+        for (const key in this.attributes) {
+          if (this.attributes.hasOwnProperty(key)) {
+            const control: FormControl = new FormControl(this.attributes[key], [Validators.required, goodBadAverage]);
+            jobGroup.addControl(key, control); // instead of this.obj[key]
+          }
+        }
+
+        this.refineryForm = jobGroup;
+        this.displayUpdateFormData = true;
+      }
+    }, (err: Response) => {
+      let msg = err.json()['message'];
+      console.log(msg);
+    });    
+   
+
+    /*this.refineryForm = this.fb.group({
       Refinery_Name: ['', [Validators.required]],
       Site_Name: ['', [Validators.required]],
       Thermal_Cracking_Pressure: ['', [Validators.required,goodBadAverage]],
@@ -81,7 +118,7 @@ export class UpdateRefinery implements OnInit {
       Petroleum_Refinery_Hydrocarbon_Balances: ['', [Validators.required,goodBadAverage]],
       Reaction_Mechanism_Pressure: ['', [Validators.required,goodBadAverage]],
       Crude_Oil_API_Gravity: ['', [Validators.required,goodBadAverage]]
-    });
+    });*/
 
 
    
