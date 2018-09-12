@@ -151,7 +151,7 @@ export class UpdateRefinery implements OnInit {
       top = null;
     }
     for(var key in refineryModal){
-			if("good" == refineryModal[key] || "average" == refineryModal[key] || "bad" == refineryModal[key]){
+			if('good' == refineryModal[key].toString().toLowerCase() || 'average' == refineryModal[key].toString().toLowerCase() || 'bad' == refineryModal[key].toString().toLowerCase()){
         refineryModal[key] = refineryModal[key].toUpperCase();
 			}
 		}
